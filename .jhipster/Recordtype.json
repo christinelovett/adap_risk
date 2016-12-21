@@ -1,0 +1,83 @@
+{
+    "relationships": [
+        {
+            "relationshipName": "category",
+            "otherEntityName": "category",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
+        },
+        {
+            "relationshipName": "countermeasure",
+            "otherEntityName": "countermeasure",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "objecttype",
+            "fieldType": "Objecttype",
+            "fieldValues": "Asset,Organization,Person,Location,Event,Project,Portfolio,Countermeasure",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "lastmodifiedby",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "lastmodifieddatetime",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "domain",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
+        }
+    ],
+    "changelogDate": "201612200952",
+    "dto": "no",
+    "service": "no",
+    "pagination": "pagination",
+    "microserviceName": "adap_risk",
+    "searchEngine": "elasticsearch"
+}

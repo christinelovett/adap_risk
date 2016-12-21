@@ -1,0 +1,12 @@
+version: '2'
+services:
+    adap_risk-postgresql:
+        container_name: adap_risk-postgresql
+        image: postgres:9.5.3
+        # volumes:
+        #     - ~/volumes/jhipster/adap_risk/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=adap_risk
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432

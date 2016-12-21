@@ -1,0 +1,10 @@
+version: '2'
+services:
+    adap_risk-elasticsearch:
+        container_name: adap_risk-elasticsearch
+        image: elasticsearch:2.3.5
+        # volumes:
+        #     - ~/volumes/jhipster/adap_risk/elasticsearch/:/usr/share/elasticsearch/data/
+        ports:
+            - 9200:9200
+            - 9300:9300

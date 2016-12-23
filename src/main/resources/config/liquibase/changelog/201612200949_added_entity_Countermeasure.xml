@@ -25,6 +25,14 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="nameshort" type="varchar(20)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="description" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="status" type="varchar(25)">
                 <constraints nullable="false" />
             </column>
@@ -39,6 +47,10 @@
             
             <column name="domain" type="varchar(25)">
                 <constraints nullable="false" />
+            </column>
+            
+            <column name="isabstract" type="bit">
+                <constraints nullable="true" />
             </column>
             
             <column name="recordtype_id" type="bigint">

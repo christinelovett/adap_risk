@@ -1,5 +1,6 @@
 package com.innvo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -33,6 +34,15 @@ public class Countermeasure implements Serializable {
     private String name;
 
     @NotNull
+    @Size(max = 20)
+    @Column(name = "nameshort", length = 20, nullable = false)
+    private String nameshort;
+
+    @Size(max = 255)
+    @Column(name = "description", length = 255)
+    private String description;
+
+    @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
     private String status;
@@ -51,6 +61,9 @@ public class Countermeasure implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
+    @Column(name = "isabstract")
+    private Boolean isabstract;
+
     @ManyToOne
     private Recordtype recordtype;
 
@@ -68,6 +81,11 @@ public class Countermeasure implements Serializable {
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
+    @OneToMany(mappedBy = "countermeasure")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -82,6 +100,22 @@ public class Countermeasure implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNameshort() {
+        return nameshort;
+    }
+
+    public void setNameshort(String nameshort) {
+        this.nameshort = nameshort;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getStatus() {
@@ -116,6 +150,14 @@ public class Countermeasure implements Serializable {
         this.domain = domain;
     }
 
+    public Boolean isIsabstract() {
+        return isabstract;
+    }
+
+    public void setIsabstract(Boolean isabstract) {
+        this.isabstract = isabstract;
+    }
+
     public Recordtype getRecordtype() {
         return recordtype;
     }
@@ -138,6 +180,14 @@ public class Countermeasure implements Serializable {
 
     public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public Set<Countermeasurefactor> getCountermeasurefactors() {
+        return countermeasurefactors;
+    }
+
+    public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
+        this.countermeasurefactors = countermeasurefactors;
     }
 
     @Override
@@ -165,10 +215,13 @@ public class Countermeasure implements Serializable {
         return "Countermeasure{" +
             "id=" + id +
             ", name='" + name + "'" +
+            ", nameshort='" + nameshort + "'" +
+            ", description='" + description + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
+            ", isabstract='" + isabstract + "'" +
             '}';
     }
 }

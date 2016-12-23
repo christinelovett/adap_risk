@@ -1,30 +1,11 @@
 {
+    "fluentMethods": true,
     "relationships": [
-        {
-            "relationshipName": "recordtype",
-            "otherEntityName": "recordtype",
-            "relationshipType": "many-to-one",
-            "otherEntityField": "name"
-        },
-        {
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
-            "relationshipName": "subcategory",
-            "otherEntityName": "subcategory",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
         {
             "relationshipName": "countermeasurefactor",
             "otherEntityName": "countermeasurefactor",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "countermeasure"
+            "otherEntityRelationshipName": "countermeasurefactortype"
         }
     ],
     "fields": [
@@ -87,16 +68,12 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"
-        },
-        {
-            "fieldName": "isabstract",
-            "fieldType": "Boolean"
         }
     ],
-    "changelogDate": "201612200949",
+    "changelogDate": "20161223144518",
     "dto": "no",
     "service": "no",
-    "entityTableName": "countermeasure",
+    "entityTableName": "countermeasurefactortype",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

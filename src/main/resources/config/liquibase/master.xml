@@ -9,7 +9,10 @@
     -->
     
     <include file="classpath:config/liquibase/changelog/201612200949_added_entity_Countermeasure.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161222232613_added_entity_Countermeasurefactor.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161223144518_added_entity_Countermeasurefactortype.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/201612200949_added_entity_constraints_Countermeasure.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20161222232613_added_entity_constraints_Countermeasurefactor.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

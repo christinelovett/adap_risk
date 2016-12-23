@@ -1,58 +1,49 @@
 {
+    "fluentMethods": true,
     "relationships": [
         {
-            "relationshipName": "recordtype",
-            "otherEntityName": "recordtype",
+            "relationshipName": "countermeasure",
+            "otherEntityName": "countermeasure",
             "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "category",
-            "otherEntityName": "category",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
-            "relationshipName": "subcategory",
-            "otherEntityName": "subcategory",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true
-        },
-        {
-            "relationshipName": "countermeasurefactor",
-            "otherEntityName": "countermeasurefactor",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "countermeasure"
+            "relationshipName": "countermeasurefactortype",
+            "otherEntityName": "countermeasurefactortype",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
-            "fieldName": "name",
+            "fieldName": "version",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required",
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "50"
+            "fieldValidateRulesMaxlength": "25"
         },
         {
-            "fieldName": "nameshort",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "20"
+            "fieldName": "factorboolean",
+            "fieldType": "Boolean"
         },
         {
-            "fieldName": "description",
+            "fieldName": "value",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "comment",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "255"
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "status",
@@ -87,16 +78,12 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"
-        },
-        {
-            "fieldName": "isabstract",
-            "fieldType": "Boolean"
         }
     ],
-    "changelogDate": "201612200949",
+    "changelogDate": "20161222232613",
     "dto": "no",
     "service": "no",
-    "entityTableName": "countermeasure",
+    "entityTableName": "countermeasurefactor",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

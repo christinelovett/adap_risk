@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Countermeasure entity.
+ * Performance test for the Scenariopathwaymbr entity.
  */
-class CountermeasureGatlingTest extends Simulation {
+class ScenariopathwaymbrGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -42,7 +42,7 @@ class CountermeasureGatlingTest extends Simulation {
         "Authorization" -> "${access_token}"
     )
 
-    val scn = scenario("Test the Countermeasure entity")
+    val scn = scenario("Test the Scenariopathwaymbr entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -60,26 +60,26 @@ class CountermeasureGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all countermeasures")
-            .get("/api/countermeasures")
+            exec(http("Get all scenariopathwaymbrs")
+            .get("/api/scenariopathwaymbrs")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new countermeasure")
-            .post("/api/countermeasures")
+            .exec(http("Create new scenariopathwaymbr")
+            .post("/api/scenariopathwaymbrs")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "nameshort":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "isabstract":null, "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "comment":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_countermeasure_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_scenariopathwaymbr_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created countermeasure")
-                .get("${new_countermeasure_url}")
+                exec(http("Get created scenariopathwaymbr")
+                .get("${new_scenariopathwaymbr_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created countermeasure")
-            .delete("${new_countermeasure_url}")
+            .exec(http("Delete created scenariopathwaymbr")
+            .delete("${new_scenariopathwaymbr_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

@@ -9,6 +9,8 @@ import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 /**
@@ -29,9 +31,6 @@ public class Countermeasurefactor implements Serializable {
     @Size(max = 25)
     @Column(name = "version", length = 25)
     private String version;
-
-    @Column(name = "factorboolean")
-    private Boolean factorboolean;
 
     @Column(name = "value", precision=10, scale=2)
     private BigDecimal value;
@@ -65,7 +64,18 @@ public class Countermeasurefactor implements Serializable {
 
     @ManyToOne
     @NotNull
+    private Pathway pathway;
+
+    @ManyToOne
+    @NotNull
     private Countermeasurefactortype countermeasurefactortype;
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "countermeasurefactor_weapon",
+               joinColumns = @JoinColumn(name="countermeasurefactors_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="weapons_id", referencedColumnName="ID"))
+    private Set<Weapon> weapons = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -86,19 +96,6 @@ public class Countermeasurefactor implements Serializable {
 
     public void setVersion(String version) {
         this.version = version;
-    }
-
-    public Boolean isFactorboolean() {
-        return factorboolean;
-    }
-
-    public Countermeasurefactor factorboolean(Boolean factorboolean) {
-        this.factorboolean = factorboolean;
-        return this;
-    }
-
-    public void setFactorboolean(Boolean factorboolean) {
-        this.factorboolean = factorboolean;
     }
 
     public BigDecimal getValue() {
@@ -192,6 +189,19 @@ public class Countermeasurefactor implements Serializable {
         this.countermeasure = countermeasure;
     }
 
+    public Pathway getPathway() {
+        return pathway;
+    }
+
+    public Countermeasurefactor pathway(Pathway pathway) {
+        this.pathway = pathway;
+        return this;
+    }
+
+    public void setPathway(Pathway pathway) {
+        this.pathway = pathway;
+    }
+
     public Countermeasurefactortype getCountermeasurefactortype() {
         return countermeasurefactortype;
     }
@@ -203,6 +213,19 @@ public class Countermeasurefactor implements Serializable {
 
     public void setCountermeasurefactortype(Countermeasurefactortype countermeasurefactortype) {
         this.countermeasurefactortype = countermeasurefactortype;
+    }
+
+    public Set<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public Countermeasurefactor weapons(Set<Weapon> weapons) {
+        this.weapons = weapons;
+        return this;
+    }
+
+    public void setWeapons(Set<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     @Override
@@ -230,7 +253,6 @@ public class Countermeasurefactor implements Serializable {
         return "Countermeasurefactor{" +
             "id=" + id +
             ", version='" + version + "'" +
-            ", factorboolean='" + factorboolean + "'" +
             ", value='" + value + "'" +
             ", comment='" + comment + "'" +
             ", status='" + status + "'" +

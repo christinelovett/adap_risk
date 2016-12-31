@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Pathway.
+    -->
+    <changeSet id="201612310810-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="recordtype_id"
+                                 baseTableName="pathway"
+                                 constraintName="fk_pathway_recordtype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recordtype"/>
+
+        <addForeignKeyConstraint baseColumnNames="pathways_id"
+                                 baseTableName="pathway_category"
+                                 constraintName="fk_pathway_category_pathways_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pathway"/>
+        <addForeignKeyConstraint baseColumnNames="categories_id"
+                                 baseTableName="pathway_category"
+                                 constraintName="fk_pathway_category_categories_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="category"/>
+        
+        <addForeignKeyConstraint baseColumnNames="pathways_id"
+                                 baseTableName="pathway_subcategory"
+                                 constraintName="fk_pathway_subcategory_pathways_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pathway"/>
+        <addForeignKeyConstraint baseColumnNames="subcategories_id"
+                                 baseTableName="pathway_subcategory"
+                                 constraintName="fk_pathway_subcategory_subcategories_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="subcategory"/>
+        
+        <addForeignKeyConstraint baseColumnNames="pathways_id"
+                                 baseTableName="pathway_weapon"
+                                 constraintName="fk_pathway_weapon_pathways_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pathway"/>
+        <addForeignKeyConstraint baseColumnNames="weapons_id"
+                                 baseTableName="pathway_weapon"
+                                 constraintName="fk_pathway_weapon_weapons_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="weapon"/>
+        
+    </changeSet>
+</databaseChangeLog>

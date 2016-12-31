@@ -68,7 +68,7 @@ class CountermeasurefactorGatlingTest extends Simulation {
             .exec(http("Create new countermeasurefactor")
             .post("/api/countermeasurefactors")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "version":"SAMPLE_TEXT", "factorboolean":null, "value":null, "comment":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "version":"SAMPLE_TEXT", "value":null, "comment":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_countermeasurefactor_url"))).exitHereIfFailed
             .pause(10)

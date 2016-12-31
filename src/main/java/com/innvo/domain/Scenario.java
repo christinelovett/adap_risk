@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Countermeasure.
+ * A Scenario.
  */
 @Entity
-@Table(name = "countermeasure")
+@Table(name = "scenario")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "countermeasure")
-public class Countermeasure implements Serializable {
+@Document(indexName = "scenario")
+public class Scenario implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -69,22 +69,22 @@ public class Countermeasure implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_category",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
+    @JoinTable(name = "scenario_category",
+               joinColumns = @JoinColumn(name="scenarios_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
     private Set<Category> categories = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_subcategory",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
+    @JoinTable(name = "scenario_subcategory",
+               joinColumns = @JoinColumn(name="scenarios_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "countermeasure")
+    @OneToMany(mappedBy = "scenario")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
+    private Set<Scenariopathwaymbr> scenariopathwaymbrs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -182,12 +182,12 @@ public class Countermeasure implements Serializable {
         this.subcategories = subcategories;
     }
 
-    public Set<Countermeasurefactor> getCountermeasurefactors() {
-        return countermeasurefactors;
+    public Set<Scenariopathwaymbr> getScenariopathwaymbrs() {
+        return scenariopathwaymbrs;
     }
 
-    public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
-        this.countermeasurefactors = countermeasurefactors;
+    public void setScenariopathwaymbrs(Set<Scenariopathwaymbr> scenariopathwaymbrs) {
+        this.scenariopathwaymbrs = scenariopathwaymbrs;
     }
 
     @Override
@@ -198,11 +198,11 @@ public class Countermeasure implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Countermeasure countermeasure = (Countermeasure) o;
-        if(countermeasure.id == null || id == null) {
+        Scenario scenario = (Scenario) o;
+        if(scenario.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, countermeasure.id);
+        return Objects.equals(id, scenario.id);
     }
 
     @Override
@@ -212,7 +212,7 @@ public class Countermeasure implements Serializable {
 
     @Override
     public String toString() {
-        return "Countermeasure{" +
+        return "Scenario{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", nameshort='" + nameshort + "'" +

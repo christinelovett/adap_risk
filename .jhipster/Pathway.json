@@ -21,10 +21,36 @@
             "ownerSide": true
         },
         {
+            "relationshipName": "scenariopathwaymbr",
+            "otherEntityName": "scenariopathwaymbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "pathway"
+        },
+        {
+            "relationshipName": "parentpathwaypathwaybr",
+            "otherEntityName": "pathwaypathwaymbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "parentpathway"
+        },
+        {
+            "relationshipName": "childpathwaypathwaymbr",
+            "otherEntityName": "pathwaypathwaymbr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "childpathway"
+        },
+        {
             "relationshipName": "countermeasurefactor",
             "otherEntityName": "countermeasurefactor",
             "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "countermeasure"
+            "otherEntityRelationshipName": "pathway"
+        },
+        {
+            "relationshipName": "weapon",
+            "otherEntityName": "weapon",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "pathway"
         }
     ],
     "fields": [
@@ -57,6 +83,14 @@
         {
             "fieldName": "isabstract",
             "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "condition",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "25"
         },
         {
             "fieldName": "status",
@@ -93,10 +127,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "201612200949",
+    "changelogDate": "201612310810",
     "dto": "no",
     "service": "no",
-    "entityTableName": "countermeasure",
+    "entityTableName": "pathway",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

@@ -1,8 +1,8 @@
 {
     "relationships": [
         {
-            "relationshipName": "category",
-            "otherEntityName": "category",
+            "relationshipName": "parentpathway",
+            "otherEntityName": "pathway",
             "relationshipType": "many-to-one",
             "relationshipValidateRules": [
                 "required"
@@ -10,51 +10,23 @@
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "scenario",
-            "otherEntityName": "scenario",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
-        },
-		{
-            "relationshipName": "pathway",
+            "relationshipName": "childpathway",
             "otherEntityName": "pathway",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
-        },
-        {
-            "relationshipName": "countermeasure",
-            "otherEntityName": "countermeasure",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
-        },
-		{
-            "relationshipName": "weapon",
-            "otherEntityName": "weapon",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
         }
     ],
     "fields": [
         {
-            "fieldName": "name",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "required",
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "50"
-        },
-        {
-            "fieldName": "description",
+            "fieldName": "comment",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
-            "fieldValidateRulesMaxlength": "255"
+            "fieldValidateRulesMaxlength": "100"
         },
         {
             "fieldName": "status",
@@ -91,9 +63,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "201612200954",
+    "changelogDate": "201612311153",
     "dto": "no",
     "service": "no",
+    "entityTableName": "pathwaypathwaymbr",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

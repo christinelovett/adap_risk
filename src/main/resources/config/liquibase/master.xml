@@ -7,12 +7,38 @@
     <!-- 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     -->
-    
+    <include file="classpath:config/liquibase/changelog/201612310757_added_entity_Scenario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612310810_added_entity_Pathway.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612311010_added_entity_Scenariopathwaymbr.xml" relativeToChangelogFile="false"/>
+   
     <include file="classpath:config/liquibase/changelog/201612200949_added_entity_Countermeasure.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161222232613_added_entity_Countermeasurefactor.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161223144518_added_entity_Countermeasurefactortype.xml" relativeToChangelogFile="false"/>
-    <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+   
+    <!--  
+    <include file="classpath:config/liquibase/changelog/201612200952_added_entity_Recordtype.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612200946_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612200954_added_entity_Subcategory.xml" relativeToChangelogFile="false"/>
+    -->
+    
+     <include file="classpath:config/liquibase/changelog/201612311153_added_entity_Pathwaypathwaymbr.xml" relativeToChangelogFile="false"/>
+     <include file="classpath:config/liquibase/changelog/201612311243_added_entity_Countermeasurepathwaymbr.xml" relativeToChangelogFile="false"/>
+     <include file="classpath:config/liquibase/changelog/201612200214_added_entity_Weapon.xml" relativeToChangelogFile="false"/>
+     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/201612310757_added_entity_constraints_Scenario.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612310810_added_entity_constraints_Pathway.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/201612200949_added_entity_constraints_Countermeasure.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20161222232613_added_entity_constraints_Countermeasurefactor.xml" relativeToChangelogFile="false"/>
+    
+    <!-- 
+    <include file="classpath:config/liquibase/changelog/201612200946_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612200954_added_entity_constraints_Subcategory.xml" relativeToChangelogFile="false"/>
+    -->
+    
+    <include file="classpath:config/liquibase/changelog/201612311010_added_entity_constraints_Scenariopathwaymbr.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612311153_added_entity_constraints_Pathwaypathwaymbr.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/201612200214_added_entity_constraints_Weapon.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+	<include file="classpath:config/liquibase/changelog/load_adap_risk.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

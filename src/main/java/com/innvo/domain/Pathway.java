@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Countermeasure.
+ * A Pathway.
  */
 @Entity
-@Table(name = "countermeasure")
+@Table(name = "pathway")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "countermeasure")
-public class Countermeasure implements Serializable {
+@Document(indexName = "pathway")
+public class Pathway implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,6 +44,10 @@ public class Countermeasure implements Serializable {
 
     @Column(name = "isabstract")
     private Boolean isabstract;
+
+    @Size(max = 25)
+    @Column(name = "condition", length = 25)
+    private String condition;
 
     @NotNull
     @Size(max = 25)
@@ -69,22 +73,44 @@ public class Countermeasure implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_category",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
+    @JoinTable(name = "pathway_category",
+               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
     private Set<Category> categories = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_subcategory",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
+    @JoinTable(name = "pathway_subcategory",
+               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "countermeasure")
+    @OneToMany(mappedBy = "pathway")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Scenariopathwaymbr> scenariopathwaymbrs = new HashSet<>();
+
+    @OneToMany(mappedBy = "parentpathway")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathwaypathwaymbr> parentpathwaypathwaybrs = new HashSet<>();
+
+    @OneToMany(mappedBy = "childpathway")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathwaypathwaymbr> childpathwaypathwaymbrs = new HashSet<>();
+
+    @OneToMany(mappedBy = "pathway")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
+
+    @ManyToMany
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @JoinTable(name = "pathway_weapon",
+               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
+               inverseJoinColumns = @JoinColumn(name="weapons_id", referencedColumnName="ID"))
+    private Set<Weapon> weapons = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -124,6 +150,14 @@ public class Countermeasure implements Serializable {
 
     public void setIsabstract(Boolean isabstract) {
         this.isabstract = isabstract;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public void setCondition(String condition) {
+        this.condition = condition;
     }
 
     public String getStatus() {
@@ -182,12 +216,44 @@ public class Countermeasure implements Serializable {
         this.subcategories = subcategories;
     }
 
+    public Set<Scenariopathwaymbr> getScenariopathwaymbrs() {
+        return scenariopathwaymbrs;
+    }
+
+    public void setScenariopathwaymbrs(Set<Scenariopathwaymbr> scenariopathwaymbrs) {
+        this.scenariopathwaymbrs = scenariopathwaymbrs;
+    }
+
+    public Set<Pathwaypathwaymbr> getParentpathwaypathwaybrs() {
+        return parentpathwaypathwaybrs;
+    }
+
+    public void setParentpathwaypathwaybrs(Set<Pathwaypathwaymbr> pathwaypathwaymbrs) {
+        this.parentpathwaypathwaybrs = pathwaypathwaymbrs;
+    }
+
+    public Set<Pathwaypathwaymbr> getChildpathwaypathwaymbrs() {
+        return childpathwaypathwaymbrs;
+    }
+
+    public void setChildpathwaypathwaymbrs(Set<Pathwaypathwaymbr> pathwaypathwaymbrs) {
+        this.childpathwaypathwaymbrs = pathwaypathwaymbrs;
+    }
+
     public Set<Countermeasurefactor> getCountermeasurefactors() {
         return countermeasurefactors;
     }
 
     public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
         this.countermeasurefactors = countermeasurefactors;
+    }
+
+    public Set<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public void setWeapons(Set<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     @Override
@@ -198,11 +264,11 @@ public class Countermeasure implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Countermeasure countermeasure = (Countermeasure) o;
-        if(countermeasure.id == null || id == null) {
+        Pathway pathway = (Pathway) o;
+        if(pathway.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, countermeasure.id);
+        return Objects.equals(id, pathway.id);
     }
 
     @Override
@@ -212,12 +278,13 @@ public class Countermeasure implements Serializable {
 
     @Override
     public String toString() {
-        return "Countermeasure{" +
+        return "Pathway{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", nameshort='" + nameshort + "'" +
             ", description='" + description + "'" +
             ", isabstract='" + isabstract + "'" +
+            ", condition='" + condition + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

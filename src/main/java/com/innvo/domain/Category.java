@@ -68,6 +68,16 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy = "categories")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Scenario> scenarios = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathway> pathways = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Countermeasure> countermeasures = new HashSet<>();
 
     public Long getId() {
@@ -140,6 +150,22 @@ public class Category implements Serializable {
 
     public void setSubcategories(Set<Subcategory> subcategories) {
         this.subcategories = subcategories;
+    }
+
+    public Set<Scenario> getScenarios() {
+        return scenarios;
+    }
+
+    public void setScenarios(Set<Scenario> scenarios) {
+        this.scenarios = scenarios;
+    }
+
+    public Set<Pathway> getPathways() {
+        return pathways;
+    }
+
+    public void setPathways(Set<Pathway> pathways) {
+        this.pathways = pathways;
     }
 
     public Set<Countermeasure> getCountermeasures() {

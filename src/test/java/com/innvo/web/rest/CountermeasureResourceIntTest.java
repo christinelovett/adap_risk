@@ -48,6 +48,9 @@ public class CountermeasureResourceIntTest {
     private static final String UPDATED_NAMESHORT = "BBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final Boolean DEFAULT_ISABSTRACT = false;
+    private static final Boolean UPDATED_ISABSTRACT = true;
     private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -58,9 +61,6 @@ public class CountermeasureResourceIntTest {
     private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
     private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
-
-    private static final Boolean DEFAULT_ISABSTRACT = false;
-    private static final Boolean UPDATED_ISABSTRACT = true;
 
     @Inject
     private CountermeasureRepository countermeasureRepository;
@@ -104,11 +104,11 @@ public class CountermeasureResourceIntTest {
         countermeasure.setName(DEFAULT_NAME);
         countermeasure.setNameshort(DEFAULT_NAMESHORT);
         countermeasure.setDescription(DEFAULT_DESCRIPTION);
+        countermeasure.setIsabstract(DEFAULT_ISABSTRACT);
         countermeasure.setStatus(DEFAULT_STATUS);
         countermeasure.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
         countermeasure.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
         countermeasure.setDomain(DEFAULT_DOMAIN);
-        countermeasure.setIsabstract(DEFAULT_ISABSTRACT);
         return countermeasure;
     }
 
@@ -137,11 +137,11 @@ public class CountermeasureResourceIntTest {
         assertThat(testCountermeasure.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testCountermeasure.getNameshort()).isEqualTo(DEFAULT_NAMESHORT);
         assertThat(testCountermeasure.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testCountermeasure.isIsabstract()).isEqualTo(DEFAULT_ISABSTRACT);
         assertThat(testCountermeasure.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testCountermeasure.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
         assertThat(testCountermeasure.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
         assertThat(testCountermeasure.getDomain()).isEqualTo(DEFAULT_DOMAIN);
-        assertThat(testCountermeasure.isIsabstract()).isEqualTo(DEFAULT_ISABSTRACT);
 
         // Validate the Countermeasure in ElasticSearch
         Countermeasure countermeasureEs = countermeasureSearchRepository.findOne(testCountermeasure.getId());
@@ -270,11 +270,11 @@ public class CountermeasureResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
-                .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())));
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -291,11 +291,11 @@ public class CountermeasureResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.nameshort").value(DEFAULT_NAMESHORT.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.isabstract").value(DEFAULT_ISABSTRACT.booleanValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
             .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
-            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()))
-            .andExpect(jsonPath("$.isabstract").value(DEFAULT_ISABSTRACT.booleanValue()));
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
     @Test
@@ -319,11 +319,11 @@ public class CountermeasureResourceIntTest {
         updatedCountermeasure.setName(UPDATED_NAME);
         updatedCountermeasure.setNameshort(UPDATED_NAMESHORT);
         updatedCountermeasure.setDescription(UPDATED_DESCRIPTION);
+        updatedCountermeasure.setIsabstract(UPDATED_ISABSTRACT);
         updatedCountermeasure.setStatus(UPDATED_STATUS);
         updatedCountermeasure.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
         updatedCountermeasure.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
         updatedCountermeasure.setDomain(UPDATED_DOMAIN);
-        updatedCountermeasure.setIsabstract(UPDATED_ISABSTRACT);
 
         restCountermeasureMockMvc.perform(put("/api/countermeasures")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -337,11 +337,11 @@ public class CountermeasureResourceIntTest {
         assertThat(testCountermeasure.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testCountermeasure.getNameshort()).isEqualTo(UPDATED_NAMESHORT);
         assertThat(testCountermeasure.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testCountermeasure.isIsabstract()).isEqualTo(UPDATED_ISABSTRACT);
         assertThat(testCountermeasure.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testCountermeasure.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
         assertThat(testCountermeasure.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
         assertThat(testCountermeasure.getDomain()).isEqualTo(UPDATED_DOMAIN);
-        assertThat(testCountermeasure.isIsabstract()).isEqualTo(UPDATED_ISABSTRACT);
 
         // Validate the Countermeasure in ElasticSearch
         Countermeasure countermeasureEs = countermeasureSearchRepository.findOne(testCountermeasure.getId());
@@ -385,10 +385,10 @@ public class CountermeasureResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
             .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
-            .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())));
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }

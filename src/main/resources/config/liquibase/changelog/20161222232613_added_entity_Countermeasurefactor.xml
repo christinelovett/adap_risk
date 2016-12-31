@@ -14,26 +14,22 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Countermeasure.
+        Added the entity Countermeasurefactor.
     -->
-    <changeSet id="201612200949-1" author="jhipster">
-        <createTable tableName="countermeasure">
+    <changeSet id="20161222232613-1" author="jhipster">
+        <createTable tableName="countermeasurefactor">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(50)">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="nameshort" type="varchar(20)">
-                <constraints nullable="false" />
-            </column>
-            
-            <column name="description" type="varchar(255)">
+            <column name="version" type="varchar(25)">
                 <constraints nullable="true" />
             </column>
             
-            <column name="isabstract" type="bit">
+            <column name="value" type="decimal(10,2)">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="comment" type="varchar(100)">
                 <constraints nullable="true" />
             </column>
             
@@ -53,35 +49,32 @@
                 <constraints nullable="false" />
             </column>
             
-            <column name="recordtype_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="countermeasure_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="pathway_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="countermeasurefactortype_id" type="bigint">
+                <constraints nullable="false" />
             </column>
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="countermeasure" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        <dropDefaultValue tableName="countermeasurefactor" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
-        <createTable tableName="countermeasure_category">
-            <column name="categories_id" type="bigint">
+        <createTable tableName="countermeasurefactor_weapon">
+            <column name="weapons_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="countermeasures_id" type="bigint">
+            <column name="countermeasurefactors_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="countermeasures_id, categories_id" tableName="countermeasure_category"/>
-        
-        <createTable tableName="countermeasure_subcategory">
-            <column name="subcategories_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="countermeasures_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="countermeasures_id, subcategories_id" tableName="countermeasure_subcategory"/>
+        <addPrimaryKey columnNames="countermeasurefactors_id, weapons_id" tableName="countermeasurefactor_weapon"/>
         
     </changeSet>
 </databaseChangeLog>

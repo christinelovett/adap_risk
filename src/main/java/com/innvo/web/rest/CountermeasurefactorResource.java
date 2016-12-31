@@ -122,7 +122,7 @@ public class CountermeasurefactorResource {
     @Timed
     public ResponseEntity<Countermeasurefactor> getCountermeasurefactor(@PathVariable Long id) {
         log.debug("REST request to get Countermeasurefactor : {}", id);
-        Countermeasurefactor countermeasurefactor = countermeasurefactorRepository.findOne(id);
+        Countermeasurefactor countermeasurefactor = countermeasurefactorRepository.findOneWithEagerRelationships(id);
         return Optional.ofNullable(countermeasurefactor)
             .map(result -> new ResponseEntity<>(
                 result,

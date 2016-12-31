@@ -14,10 +14,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle"/>
 
     <!--
-        Added the entity Countermeasure.
+        Added the entity Scenario.
     -->
-    <changeSet id="201612200949-1" author="jhipster">
-        <createTable tableName="countermeasure">
+    <changeSet id="201612310757-1" author="jhipster">
+        <createTable tableName="scenario">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -59,29 +59,29 @@
 
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="countermeasure" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        <dropDefaultValue tableName="scenario" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
-        <createTable tableName="countermeasure_category">
+        <createTable tableName="scenario_category">
             <column name="categories_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="countermeasures_id" type="bigint">
+            <column name="scenarios_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="countermeasures_id, categories_id" tableName="countermeasure_category"/>
+        <addPrimaryKey columnNames="scenarios_id, categories_id" tableName="scenario_category"/>
         
-        <createTable tableName="countermeasure_subcategory">
+        <createTable tableName="scenario_subcategory">
             <column name="subcategories_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="countermeasures_id" type="bigint">
+            <column name="scenarios_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="countermeasures_id, subcategories_id" tableName="countermeasure_subcategory"/>
+        <addPrimaryKey columnNames="scenarios_id, subcategories_id" tableName="scenario_subcategory"/>
         
     </changeSet>
 </databaseChangeLog>

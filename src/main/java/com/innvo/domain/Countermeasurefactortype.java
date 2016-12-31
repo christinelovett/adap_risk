@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Countermeasure.
+ * A Countermeasurefactortype.
  */
 @Entity
-@Table(name = "countermeasure")
+@Table(name = "countermeasurefactortype")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "countermeasure")
-public class Countermeasure implements Serializable {
+@Document(indexName = "countermeasurefactortype")
+public class Countermeasurefactortype implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -42,9 +42,6 @@ public class Countermeasure implements Serializable {
     @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "isabstract")
-    private Boolean isabstract;
-
     @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
@@ -64,24 +61,7 @@ public class Countermeasure implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @ManyToOne
-    private Recordtype recordtype;
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_category",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
-    private Set<Category> categories = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "countermeasure_subcategory",
-               joinColumns = @JoinColumn(name="countermeasures_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
-    private Set<Subcategory> subcategories = new HashSet<>();
-
-    @OneToMany(mappedBy = "countermeasure")
+    @OneToMany(mappedBy = "countermeasurefactortype")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
@@ -98,12 +78,22 @@ public class Countermeasure implements Serializable {
         return name;
     }
 
+    public Countermeasurefactortype name(String name) {
+        this.name = name;
+        return this;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public String getNameshort() {
         return nameshort;
+    }
+
+    public Countermeasurefactortype nameshort(String nameshort) {
+        this.nameshort = nameshort;
+        return this;
     }
 
     public void setNameshort(String nameshort) {
@@ -114,20 +104,22 @@ public class Countermeasure implements Serializable {
         return description;
     }
 
+    public Countermeasurefactortype description(String description) {
+        this.description = description;
+        return this;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public Boolean isIsabstract() {
-        return isabstract;
-    }
-
-    public void setIsabstract(Boolean isabstract) {
-        this.isabstract = isabstract;
-    }
-
     public String getStatus() {
         return status;
+    }
+
+    public Countermeasurefactortype status(String status) {
+        this.status = status;
+        return this;
     }
 
     public void setStatus(String status) {
@@ -138,12 +130,22 @@ public class Countermeasure implements Serializable {
         return lastmodifiedby;
     }
 
+    public Countermeasurefactortype lastmodifiedby(String lastmodifiedby) {
+        this.lastmodifiedby = lastmodifiedby;
+        return this;
+    }
+
     public void setLastmodifiedby(String lastmodifiedby) {
         this.lastmodifiedby = lastmodifiedby;
     }
 
     public ZonedDateTime getLastmodifieddatetime() {
         return lastmodifieddatetime;
+    }
+
+    public Countermeasurefactortype lastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
+        this.lastmodifieddatetime = lastmodifieddatetime;
+        return this;
     }
 
     public void setLastmodifieddatetime(ZonedDateTime lastmodifieddatetime) {
@@ -154,36 +156,34 @@ public class Countermeasure implements Serializable {
         return domain;
     }
 
+    public Countermeasurefactortype domain(String domain) {
+        this.domain = domain;
+        return this;
+    }
+
     public void setDomain(String domain) {
         this.domain = domain;
     }
 
-    public Recordtype getRecordtype() {
-        return recordtype;
-    }
-
-    public void setRecordtype(Recordtype recordtype) {
-        this.recordtype = recordtype;
-    }
-
-    public Set<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(Set<Category> categories) {
-        this.categories = categories;
-    }
-
-    public Set<Subcategory> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(Set<Subcategory> subcategories) {
-        this.subcategories = subcategories;
-    }
-
     public Set<Countermeasurefactor> getCountermeasurefactors() {
         return countermeasurefactors;
+    }
+
+    public Countermeasurefactortype countermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
+        this.countermeasurefactors = countermeasurefactors;
+        return this;
+    }
+
+    public Countermeasurefactortype addCountermeasurefactor(Countermeasurefactor countermeasurefactor) {
+        countermeasurefactors.add(countermeasurefactor);
+        countermeasurefactor.setCountermeasurefactortype(this);
+        return this;
+    }
+
+    public Countermeasurefactortype removeCountermeasurefactor(Countermeasurefactor countermeasurefactor) {
+        countermeasurefactors.remove(countermeasurefactor);
+        countermeasurefactor.setCountermeasurefactortype(null);
+        return this;
     }
 
     public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
@@ -198,11 +198,11 @@ public class Countermeasure implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Countermeasure countermeasure = (Countermeasure) o;
-        if(countermeasure.id == null || id == null) {
+        Countermeasurefactortype countermeasurefactortype = (Countermeasurefactortype) o;
+        if(countermeasurefactortype.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, countermeasure.id);
+        return Objects.equals(id, countermeasurefactortype.id);
     }
 
     @Override
@@ -212,12 +212,11 @@ public class Countermeasure implements Serializable {
 
     @Override
     public String toString() {
-        return "Countermeasure{" +
+        return "Countermeasurefactortype{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", nameshort='" + nameshort + "'" +
             ", description='" + description + "'" +
-            ", isabstract='" + isabstract + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

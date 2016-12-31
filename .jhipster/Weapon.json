@@ -1,41 +1,38 @@
 {
     "relationships": [
         {
-            "relationshipName": "category",
-            "otherEntityName": "category",
+            "relationshipName": "recordtype",
+            "otherEntityName": "recordtype",
             "relationshipType": "many-to-one",
-            "relationshipValidateRules": [
-                "required"
-            ],
             "otherEntityField": "name"
         },
         {
-            "relationshipName": "scenario",
-            "otherEntityName": "scenario",
+            "relationshipName": "category",
+            "otherEntityName": "category",
             "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
+            "otherEntityField": "name",
+            "ownerSide": true
         },
-		{
+        {
+            "relationshipName": "subcategory",
+            "otherEntityName": "subcategory",
+            "relationshipType": "many-to-many",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
             "relationshipName": "pathway",
             "otherEntityName": "pathway",
             "relationshipType": "many-to-many",
             "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
+            "otherEntityRelationshipName": "weapon"
         },
         {
-            "relationshipName": "countermeasure",
-            "otherEntityName": "countermeasure",
+            "relationshipName": "countermeasurefactor",
+            "otherEntityName": "countermeasurefactor",
             "relationshipType": "many-to-many",
             "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
-        },
-		{
-            "relationshipName": "weapon",
-            "otherEntityName": "weapon",
-            "relationshipType": "many-to-many",
-            "ownerSide": false,
-            "otherEntityRelationshipName": "subcategory"
+            "otherEntityRelationshipName": "weapon"
         }
     ],
     "fields": [
@@ -49,12 +46,25 @@
             "fieldValidateRulesMaxlength": "50"
         },
         {
+            "fieldName": "nameshort",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
             "fieldName": "description",
             "fieldType": "String",
             "fieldValidateRules": [
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "isabstract",
+            "fieldType": "Boolean"
         },
         {
             "fieldName": "status",
@@ -91,9 +101,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "201612200954",
+    "changelogDate": "201612200214",
     "dto": "no",
     "service": "no",
+    "entityTableName": "weapon",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

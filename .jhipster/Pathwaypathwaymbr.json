@@ -29,6 +29,14 @@
             "fieldValidateRulesMaxlength": "100"
         },
         {
+            "fieldName": "logicoperator",
+            "fieldType": "Operator",
+            "fieldValues": "And,Or",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
             "fieldName": "status",
             "fieldType": "String",
             "fieldValidateRules": [

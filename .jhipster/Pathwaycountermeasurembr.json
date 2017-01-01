@@ -1,6 +1,23 @@
 {
     "relationships": [
-   
+        {
+            "relationshipName": "pathway",
+            "otherEntityName": "pathway",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipName": "countermeasure",
+            "otherEntityName": "countermeasure",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "name"
+        }
     ],
     "fields": [
         {
@@ -46,10 +63,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "201612311243",
+    "changelogDate": "201612310907",
     "dto": "no",
     "service": "no",
-    "entityTableName": "countermeasurepathwaymbr",
+    "entityTableName": "pathwaycountermeasurembr",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

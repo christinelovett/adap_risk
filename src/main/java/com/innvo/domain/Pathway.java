@@ -68,6 +68,9 @@ public class Pathway implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
+    @Column(name = "isrootnode")
+    private Boolean isrootnode;
+
     @ManyToOne
     private Recordtype recordtype;
 
@@ -100,17 +103,17 @@ public class Pathway implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Pathwaypathwaymbr> childpathwaypathwaymbrs = new HashSet<>();
 
-    @OneToMany(mappedBy = "pathway")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
-
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @JoinTable(name = "pathway_weapon",
                joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="weapons_id", referencedColumnName="ID"))
     private Set<Weapon> weapons = new HashSet<>();
+
+    @OneToMany(mappedBy = "pathway")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -192,6 +195,14 @@ public class Pathway implements Serializable {
         this.domain = domain;
     }
 
+    public Boolean isIsrootnode() {
+        return isrootnode;
+    }
+
+    public void setIsrootnode(Boolean isrootnode) {
+        this.isrootnode = isrootnode;
+    }
+
     public Recordtype getRecordtype() {
         return recordtype;
     }
@@ -240,20 +251,20 @@ public class Pathway implements Serializable {
         this.childpathwaypathwaymbrs = pathwaypathwaymbrs;
     }
 
-    public Set<Countermeasurefactor> getCountermeasurefactors() {
-        return countermeasurefactors;
-    }
-
-    public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
-        this.countermeasurefactors = countermeasurefactors;
-    }
-
     public Set<Weapon> getWeapons() {
         return weapons;
     }
 
     public void setWeapons(Set<Weapon> weapons) {
         this.weapons = weapons;
+    }
+
+    public Set<Pathwaycountermeasurembr> getPathwaycountermeasurembrs() {
+        return pathwaycountermeasurembrs;
+    }
+
+    public void setPathwaycountermeasurembrs(Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs) {
+        this.pathwaycountermeasurembrs = pathwaycountermeasurembrs;
     }
 
     @Override
@@ -289,6 +300,7 @@ public class Pathway implements Serializable {
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
+            ", isrootnode='" + isrootnode + "'" +
             '}';
     }
 }

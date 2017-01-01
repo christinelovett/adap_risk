@@ -10,6 +10,8 @@ import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.innvo.domain.enumeration.Operator;
+
 /**
  * A Pathwaypathwaymbr.
  */
@@ -28,6 +30,11 @@ public class Pathwaypathwaymbr implements Serializable {
     @Size(max = 100)
     @Column(name = "comment", length = 100)
     private String comment;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "logicoperator", nullable = false)
+    private Operator logicoperator;
 
     @NotNull
     @Size(max = 25)
@@ -70,6 +77,14 @@ public class Pathwaypathwaymbr implements Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public Operator getLogicoperator() {
+        return logicoperator;
+    }
+
+    public void setLogicoperator(Operator logicoperator) {
+        this.logicoperator = logicoperator;
     }
 
     public String getStatus() {
@@ -145,6 +160,7 @@ public class Pathwaypathwaymbr implements Serializable {
         return "Pathwaypathwaymbr{" +
             "id=" + id +
             ", comment='" + comment + "'" +
+            ", logicoperator='" + logicoperator + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +

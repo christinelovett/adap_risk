@@ -1,5 +1,4 @@
 {
-    "fluentMethods": true,
     "relationships": [
         {
             "relationshipName": "countermeasure",
@@ -38,6 +37,32 @@
         }
     ],
     "fields": [
+	    {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "nameshort",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
         {
             "fieldName": "version",
             "fieldType": "String",
@@ -50,7 +75,7 @@
             "fieldName": "value",
             "fieldType": "String",
 			"fieldValidateRules": [
-               "required"
+               "required",
 			   "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"

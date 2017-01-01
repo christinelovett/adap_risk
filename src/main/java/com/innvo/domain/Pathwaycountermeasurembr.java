@@ -11,13 +11,13 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
- * A Countermeasurepathwaymbr.
+ * A Pathwaycountermeasurembr.
  */
 @Entity
-@Table(name = "countermeasurepathwaymbr")
+@Table(name = "pathwaycountermeasurembr")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "countermeasurepathwaymbr")
-public class Countermeasurepathwaymbr implements Serializable {
+@Document(indexName = "pathwaycountermeasurembr")
+public class Pathwaycountermeasurembr implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -47,6 +47,14 @@ public class Countermeasurepathwaymbr implements Serializable {
     @Size(max = 25)
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
+
+    @ManyToOne
+    @NotNull
+    private Pathway pathway;
+
+    @ManyToOne
+    @NotNull
+    private Countermeasure countermeasure;
 
     public Long getId() {
         return id;
@@ -96,6 +104,22 @@ public class Countermeasurepathwaymbr implements Serializable {
         this.domain = domain;
     }
 
+    public Pathway getPathway() {
+        return pathway;
+    }
+
+    public void setPathway(Pathway pathway) {
+        this.pathway = pathway;
+    }
+
+    public Countermeasure getCountermeasure() {
+        return countermeasure;
+    }
+
+    public void setCountermeasure(Countermeasure countermeasure) {
+        this.countermeasure = countermeasure;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -104,11 +128,11 @@ public class Countermeasurepathwaymbr implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Countermeasurepathwaymbr countermeasurepathwaymbr = (Countermeasurepathwaymbr) o;
-        if(countermeasurepathwaymbr.id == null || id == null) {
+        Pathwaycountermeasurembr pathwaycountermeasurembr = (Pathwaycountermeasurembr) o;
+        if(pathwaycountermeasurembr.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, countermeasurepathwaymbr.id);
+        return Objects.equals(id, pathwaycountermeasurembr.id);
     }
 
     @Override
@@ -118,7 +142,7 @@ public class Countermeasurepathwaymbr implements Serializable {
 
     @Override
     public String toString() {
-        return "Countermeasurepathwaymbr{" +
+        return "Pathwaycountermeasurembr{" +
             "id=" + id +
             ", comment='" + comment + "'" +
             ", status='" + status + "'" +

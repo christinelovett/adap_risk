@@ -30,7 +30,6 @@ import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.ZoneId;
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -46,11 +45,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = AdapRiskApp.class)
 public class CountermeasurefactorResourceIntTest {
     private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
+    private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_NAMESHORT = "AAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_NAMESHORT = "BBBBBBBBBBBBBBBBBBBB";
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_VERSION = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_VERSION = "BBBBBBBBBBBBBBBBBBBBBBBBB";
-
-    private static final BigDecimal DEFAULT_VALUE = new BigDecimal(1);
-    private static final BigDecimal UPDATED_VALUE = new BigDecimal(2);
+    private static final String DEFAULT_VALUE = "AAAAAAAAAAAAAAAAAAAAAAAAA";
+    private static final String UPDATED_VALUE = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_COMMENT = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_COMMENT = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -102,14 +106,17 @@ public class CountermeasurefactorResourceIntTest {
      */
     public static Countermeasurefactor createEntity(EntityManager em) {
         Countermeasurefactor countermeasurefactor = new Countermeasurefactor();
-        countermeasurefactor = new Countermeasurefactor()
-                .version(DEFAULT_VERSION)
-                .value(DEFAULT_VALUE)
-                .comment(DEFAULT_COMMENT)
-                .status(DEFAULT_STATUS)
-                .lastmodifiedby(DEFAULT_LASTMODIFIEDBY)
-                .lastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME)
-                .domain(DEFAULT_DOMAIN);
+        countermeasurefactor = new Countermeasurefactor();
+        countermeasurefactor.setName(DEFAULT_NAME);
+        countermeasurefactor.setNameshort(DEFAULT_NAMESHORT);
+        countermeasurefactor.setDescription(DEFAULT_DESCRIPTION);
+        countermeasurefactor.setVersion(DEFAULT_VERSION);
+        countermeasurefactor.setValue(DEFAULT_VALUE);
+        countermeasurefactor.setComment(DEFAULT_COMMENT);
+        countermeasurefactor.setStatus(DEFAULT_STATUS);
+        countermeasurefactor.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
+        countermeasurefactor.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
+        countermeasurefactor.setDomain(DEFAULT_DOMAIN);
         // Add required entity
         Countermeasure countermeasure = CountermeasureResourceIntTest.createEntity(em);
         em.persist(countermeasure);
@@ -150,6 +157,9 @@ public class CountermeasurefactorResourceIntTest {
         List<Countermeasurefactor> countermeasurefactors = countermeasurefactorRepository.findAll();
         assertThat(countermeasurefactors).hasSize(databaseSizeBeforeCreate + 1);
         Countermeasurefactor testCountermeasurefactor = countermeasurefactors.get(countermeasurefactors.size() - 1);
+        assertThat(testCountermeasurefactor.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testCountermeasurefactor.getNameshort()).isEqualTo(DEFAULT_NAMESHORT);
+        assertThat(testCountermeasurefactor.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
         assertThat(testCountermeasurefactor.getVersion()).isEqualTo(DEFAULT_VERSION);
         assertThat(testCountermeasurefactor.getValue()).isEqualTo(DEFAULT_VALUE);
         assertThat(testCountermeasurefactor.getComment()).isEqualTo(DEFAULT_COMMENT);
@@ -161,6 +171,60 @@ public class CountermeasurefactorResourceIntTest {
         // Validate the Countermeasurefactor in ElasticSearch
         Countermeasurefactor countermeasurefactorEs = countermeasurefactorSearchRepository.findOne(testCountermeasurefactor.getId());
         assertThat(countermeasurefactorEs).isEqualToComparingFieldByField(testCountermeasurefactor);
+    }
+
+    @Test
+    @Transactional
+    public void checkNameIsRequired() throws Exception {
+        int databaseSizeBeforeTest = countermeasurefactorRepository.findAll().size();
+        // set the field null
+        countermeasurefactor.setName(null);
+
+        // Create the Countermeasurefactor, which fails.
+
+        restCountermeasurefactorMockMvc.perform(post("/api/countermeasurefactors")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(countermeasurefactor)))
+                .andExpect(status().isBadRequest());
+
+        List<Countermeasurefactor> countermeasurefactors = countermeasurefactorRepository.findAll();
+        assertThat(countermeasurefactors).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkNameshortIsRequired() throws Exception {
+        int databaseSizeBeforeTest = countermeasurefactorRepository.findAll().size();
+        // set the field null
+        countermeasurefactor.setNameshort(null);
+
+        // Create the Countermeasurefactor, which fails.
+
+        restCountermeasurefactorMockMvc.perform(post("/api/countermeasurefactors")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(countermeasurefactor)))
+                .andExpect(status().isBadRequest());
+
+        List<Countermeasurefactor> countermeasurefactors = countermeasurefactorRepository.findAll();
+        assertThat(countermeasurefactors).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
+    public void checkValueIsRequired() throws Exception {
+        int databaseSizeBeforeTest = countermeasurefactorRepository.findAll().size();
+        // set the field null
+        countermeasurefactor.setValue(null);
+
+        // Create the Countermeasurefactor, which fails.
+
+        restCountermeasurefactorMockMvc.perform(post("/api/countermeasurefactors")
+                .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                .content(TestUtil.convertObjectToJsonBytes(countermeasurefactor)))
+                .andExpect(status().isBadRequest());
+
+        List<Countermeasurefactor> countermeasurefactors = countermeasurefactorRepository.findAll();
+        assertThat(countermeasurefactors).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -246,8 +310,11 @@ public class CountermeasurefactorResourceIntTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(countermeasurefactor.getId().intValue())))
+                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+                .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
+                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
                 .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.toString())))
-                .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.intValue())))
+                .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.toString())))
                 .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
@@ -266,8 +333,11 @@ public class CountermeasurefactorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(countermeasurefactor.getId().intValue()))
+            .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
+            .andExpect(jsonPath("$.nameshort").value(DEFAULT_NAMESHORT.toString()))
+            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.version").value(DEFAULT_VERSION.toString()))
-            .andExpect(jsonPath("$.value").value(DEFAULT_VALUE.intValue()))
+            .andExpect(jsonPath("$.value").value(DEFAULT_VALUE.toString()))
             .andExpect(jsonPath("$.comment").value(DEFAULT_COMMENT.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
@@ -293,14 +363,16 @@ public class CountermeasurefactorResourceIntTest {
 
         // Update the countermeasurefactor
         Countermeasurefactor updatedCountermeasurefactor = countermeasurefactorRepository.findOne(countermeasurefactor.getId());
-        updatedCountermeasurefactor
-                .version(UPDATED_VERSION)
-                .value(UPDATED_VALUE)
-                .comment(UPDATED_COMMENT)
-                .status(UPDATED_STATUS)
-                .lastmodifiedby(UPDATED_LASTMODIFIEDBY)
-                .lastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME)
-                .domain(UPDATED_DOMAIN);
+        updatedCountermeasurefactor.setName(UPDATED_NAME);
+        updatedCountermeasurefactor.setNameshort(UPDATED_NAMESHORT);
+        updatedCountermeasurefactor.setDescription(UPDATED_DESCRIPTION);
+        updatedCountermeasurefactor.setVersion(UPDATED_VERSION);
+        updatedCountermeasurefactor.setValue(UPDATED_VALUE);
+        updatedCountermeasurefactor.setComment(UPDATED_COMMENT);
+        updatedCountermeasurefactor.setStatus(UPDATED_STATUS);
+        updatedCountermeasurefactor.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
+        updatedCountermeasurefactor.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
+        updatedCountermeasurefactor.setDomain(UPDATED_DOMAIN);
 
         restCountermeasurefactorMockMvc.perform(put("/api/countermeasurefactors")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -311,6 +383,9 @@ public class CountermeasurefactorResourceIntTest {
         List<Countermeasurefactor> countermeasurefactors = countermeasurefactorRepository.findAll();
         assertThat(countermeasurefactors).hasSize(databaseSizeBeforeUpdate);
         Countermeasurefactor testCountermeasurefactor = countermeasurefactors.get(countermeasurefactors.size() - 1);
+        assertThat(testCountermeasurefactor.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testCountermeasurefactor.getNameshort()).isEqualTo(UPDATED_NAMESHORT);
+        assertThat(testCountermeasurefactor.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
         assertThat(testCountermeasurefactor.getVersion()).isEqualTo(UPDATED_VERSION);
         assertThat(testCountermeasurefactor.getValue()).isEqualTo(UPDATED_VALUE);
         assertThat(testCountermeasurefactor.getComment()).isEqualTo(UPDATED_COMMENT);
@@ -358,8 +433,11 @@ public class CountermeasurefactorResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(countermeasurefactor.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].version").value(hasItem(DEFAULT_VERSION.toString())))
-            .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.intValue())))
+            .andExpect(jsonPath("$.[*].value").value(hasItem(DEFAULT_VALUE.toString())))
             .andExpect(jsonPath("$.[*].comment").value(hasItem(DEFAULT_COMMENT.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))

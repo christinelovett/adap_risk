@@ -35,5 +35,26 @@
                   file="config/liquibase/adap_risk_countermeasures_0.csv"
                   separator=","
                   tableName="countermeasure"/>
+          <loadData encoding="UTF-8"
+                  file="config/liquibase/adap_risk_pathwaypathwaymbrs_0.csv"
+                  separator=","
+                  tableName="pathwaypathwaymbr"/>       
+          <loadData encoding="UTF-8"
+                  file="config/liquibase/adap_risk_pathwaycountermeasurembrs_0.csv"
+                  separator=","
+                  tableName="pathwaycountermeasurembr"/>  
+          <loadData encoding="UTF-8"
+                  file="config/liquibase/adap_risk_weapons_0.csv"
+                  separator=","
+                  tableName="weapon"/>
+          <loadData encoding="UTF-8"
+                  file="config/liquibase/adap_risk_countermeasurefactortypes_0.csv"
+                  separator=","
+                  tableName="countermeasurefactortype"/> 
+          <!-- <loadData encoding="UTF-8"
+                  file="config/liquibase/adap_risk_countermeasurefactors_0.csv"
+                  separator=","
+                  tableName="countermeasurefactor"/>  
+          -->      
     </changeSet>
 </databaseChangeLog>

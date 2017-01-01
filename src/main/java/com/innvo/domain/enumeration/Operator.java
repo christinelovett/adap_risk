@@ -1,8 +1,8 @@
 package com.innvo.domain.enumeration;
 
 /**
- * The Condition enumeration.
+ * The Operator enumeration.
  */
-public enum Condition {
+public enum Operator {
     And,Or
 }

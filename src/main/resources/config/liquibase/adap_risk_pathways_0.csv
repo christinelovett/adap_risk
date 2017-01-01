@@ -1,2 +1,3 @@
 id,name,nameshort,description,condition,isabstract,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
 100,Pathway One,P1,Pathway One Generic Test,And,True,Active,echasin,2016-12-31 00:00:00,TEST,null
+110,Pathway Two,P2,Pathway Two Generic Test,And,True,Active,echasin,2016-12-31 00:00:00,TEST,null

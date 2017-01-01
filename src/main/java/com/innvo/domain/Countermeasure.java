@@ -84,7 +84,7 @@ public class Countermeasure implements Serializable {
     @OneToMany(mappedBy = "countermeasure")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Countermeasurefactor> countermeasurefactors = new HashSet<>();
+    private Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -182,12 +182,12 @@ public class Countermeasure implements Serializable {
         this.subcategories = subcategories;
     }
 
-    public Set<Countermeasurefactor> getCountermeasurefactors() {
-        return countermeasurefactors;
+    public Set<Pathwaycountermeasurembr> getPathwaycountermeasurembrs() {
+        return pathwaycountermeasurembrs;
     }
 
-    public void setCountermeasurefactors(Set<Countermeasurefactor> countermeasurefactors) {
-        this.countermeasurefactors = countermeasurefactors;
+    public void setPathwaycountermeasurembrs(Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs) {
+        this.pathwaycountermeasurembrs = pathwaycountermeasurembrs;
     }
 
     @Override

@@ -64,6 +64,9 @@ public class PathwayResourceIntTest {
     private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
 
+    private static final Boolean DEFAULT_ISROOTNODE = false;
+    private static final Boolean UPDATED_ISROOTNODE = true;
+
     @Inject
     private PathwayRepository pathwayRepository;
 
@@ -112,6 +115,7 @@ public class PathwayResourceIntTest {
         pathway.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
         pathway.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
         pathway.setDomain(DEFAULT_DOMAIN);
+        pathway.setIsrootnode(DEFAULT_ISROOTNODE);
         return pathway;
     }
 
@@ -146,6 +150,7 @@ public class PathwayResourceIntTest {
         assertThat(testPathway.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
         assertThat(testPathway.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
         assertThat(testPathway.getDomain()).isEqualTo(DEFAULT_DOMAIN);
+        assertThat(testPathway.isIsrootnode()).isEqualTo(DEFAULT_ISROOTNODE);
 
         // Validate the Pathway in ElasticSearch
         Pathway pathwayEs = pathwaySearchRepository.findOne(testPathway.getId());
@@ -279,7 +284,8 @@ public class PathwayResourceIntTest {
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
+                .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())));
     }
 
     @Test
@@ -301,7 +307,8 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
             .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
-            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()))
+            .andExpect(jsonPath("$.isrootnode").value(DEFAULT_ISROOTNODE.booleanValue()));
     }
 
     @Test
@@ -331,6 +338,7 @@ public class PathwayResourceIntTest {
         updatedPathway.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
         updatedPathway.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
         updatedPathway.setDomain(UPDATED_DOMAIN);
+        updatedPathway.setIsrootnode(UPDATED_ISROOTNODE);
 
         restPathwayMockMvc.perform(put("/api/pathways")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -350,6 +358,7 @@ public class PathwayResourceIntTest {
         assertThat(testPathway.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
         assertThat(testPathway.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
         assertThat(testPathway.getDomain()).isEqualTo(UPDATED_DOMAIN);
+        assertThat(testPathway.isIsrootnode()).isEqualTo(UPDATED_ISROOTNODE);
 
         // Validate the Pathway in ElasticSearch
         Pathway pathwayEs = pathwaySearchRepository.findOne(testPathway.getId());
@@ -398,6 +407,7 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
             .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
+            .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())));
     }
 }

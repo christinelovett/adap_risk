@@ -39,17 +39,17 @@
             "otherEntityRelationshipName": "childpathway"
         },
         {
-            "relationshipName": "countermeasurefactor",
-            "otherEntityName": "countermeasurefactor",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "pathway"
-        },
-        {
             "relationshipName": "weapon",
             "otherEntityName": "weapon",
             "relationshipType": "many-to-many",
             "otherEntityField": "name",
             "ownerSide": true,
+            "otherEntityRelationshipName": "pathway"
+        },
+        {
+            "relationshipName": "pathwaycountermeasurembr",
+            "otherEntityName": "pathwaycountermeasurembr",
+            "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "pathway"
         }
     ],
@@ -125,6 +125,10 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"
+        },
+        {
+            "fieldName": "isrootnode",
+            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "201612310810",

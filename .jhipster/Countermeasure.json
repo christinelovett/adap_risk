@@ -21,8 +21,8 @@
             "ownerSide": true
         },
         {
-            "relationshipName": "countermeasurefactor",
-            "otherEntityName": "countermeasurefactor",
+            "relationshipName": "pathwaycountermeasurembr",
+            "otherEntityName": "pathwaycountermeasurembr",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "countermeasure"
         }

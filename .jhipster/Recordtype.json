@@ -7,8 +7,26 @@
             "otherEntityRelationshipName": "recordtype"
         },
         {
+            "relationshipName": "scenario",
+            "otherEntityName": "scenario",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
+        },
+		{
+            "relationshipName": "pathway",
+            "otherEntityName": "pathway",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
+        },
+        {
             "relationshipName": "countermeasure",
             "otherEntityName": "countermeasure",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
+        },
+        {
+            "relationshipName": "weapon",
+            "otherEntityName": "weapon",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "recordtype"
         }
@@ -17,7 +35,7 @@
         {
             "fieldName": "objecttype",
             "fieldType": "Objecttype",
-            "fieldValues": "Asset,Organization,Person,Location,Event,Project,Portfolio,Countermeasure",
+            "fieldValues": "Asset,Organization,Person,Location,Event,Project,Portfolio,Scenario,Countermeasure",
             "fieldValidateRules": [
                 "required"
             ]

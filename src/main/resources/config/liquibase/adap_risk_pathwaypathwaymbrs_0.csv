@@ -1,0 +1,12 @@
+id,comment,logicoperator,status,lastmodifiedby,lastmodifieddatetime,domain,parentpathway_id,childpathway_id
+110,Activity Two - Goal One,Or,Active,echasin,2016-12-31 00:00:00,TEST,100,110
+120,Activity Three - Goal One,Or,Active,echasin,2016-12-31 00:00:00,TEST,100,110
+130,Pathway Four - Activity Two,Or,Active,echasin,2016-12-31 00:00:00,TEST,110,120
+140,Pathway Five - Activity Two,Or,Active,echasin,2016-12-31 00:00:00,TEST,110,130
+150,Pathway Six - Actvity Three,And,Active,echasin,2016-12-31 00:00:00,TEST,100,120
+210,Unlock Door - Steal Car,And,Active,echasin,2016-12-31 00:00:00,TEST,200,210
+220,Smash Window - Unlock Car,Or,Active,echasin,2016-12-31 00:00:00,TEST,210,220
+230,Pick Lock - Unlock Car,Or,Active,echasin,2016-12-31 00:00:00,TEST,210,230
+240,Start Engine - Steal Car,And,Active,echasin,2016-12-31 00:00:00,TEST,200,240
+250,Hot Wire - Start Engine,Or,Active,echasin,2016-12-31 00:00:00,TEST,240,250
+260,Screw Driver - Steal Car,Or,Active,echasin,2016-12-31 00:00:00,TEST,240,260

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Countermeasureeffectiveness.
+    -->
+    <changeSet id="20161222232613-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="countermeasure_id"
+                                 baseTableName="countermeasureeffectiveness"
+                                 constraintName="fk_countermeasureeffectiveness_countermeasure_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="countermeasure"/>
+
+    </changeSet>
+</databaseChangeLog>

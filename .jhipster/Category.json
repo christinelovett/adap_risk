@@ -16,8 +16,29 @@
             "otherEntityRelationshipName": "category"
         },
         {
+            "relationshipName": "scenario",
+            "otherEntityName": "scenario",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipName": "pathway",
+            "otherEntityName": "pathway",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+        {
             "relationshipName": "countermeasure",
             "otherEntityName": "countermeasure",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
+        },
+		{
+            "relationshipName": "weapon",
+            "otherEntityName": "weapon",
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "category"

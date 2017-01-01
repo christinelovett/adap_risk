@@ -42,12 +42,11 @@ public class Pathway implements Serializable {
     @Column(name = "description", length = 255)
     private String description;
 
+    @Column(name = "isrootnode")
+    private Boolean isrootnode;
+
     @Column(name = "isabstract")
     private Boolean isabstract;
-
-    @Size(max = 25)
-    @Column(name = "condition", length = 25)
-    private String condition;
 
     @NotNull
     @Size(max = 25)
@@ -67,9 +66,6 @@ public class Pathway implements Serializable {
     @Size(max = 25)
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
-
-    @Column(name = "isrootnode")
-    private Boolean isrootnode;
 
     @ManyToOne
     private Recordtype recordtype;
@@ -147,20 +143,20 @@ public class Pathway implements Serializable {
         this.description = description;
     }
 
+    public Boolean isIsrootnode() {
+        return isrootnode;
+    }
+
+    public void setIsrootnode(Boolean isrootnode) {
+        this.isrootnode = isrootnode;
+    }
+
     public Boolean isIsabstract() {
         return isabstract;
     }
 
     public void setIsabstract(Boolean isabstract) {
         this.isabstract = isabstract;
-    }
-
-    public String getCondition() {
-        return condition;
-    }
-
-    public void setCondition(String condition) {
-        this.condition = condition;
     }
 
     public String getStatus() {
@@ -193,14 +189,6 @@ public class Pathway implements Serializable {
 
     public void setDomain(String domain) {
         this.domain = domain;
-    }
-
-    public Boolean isIsrootnode() {
-        return isrootnode;
-    }
-
-    public void setIsrootnode(Boolean isrootnode) {
-        this.isrootnode = isrootnode;
     }
 
     public Recordtype getRecordtype() {
@@ -294,13 +282,12 @@ public class Pathway implements Serializable {
             ", name='" + name + "'" +
             ", nameshort='" + nameshort + "'" +
             ", description='" + description + "'" +
+            ", isrootnode='" + isrootnode + "'" +
             ", isabstract='" + isabstract + "'" +
-            ", condition='" + condition + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +
             ", lastmodifieddatetime='" + lastmodifieddatetime + "'" +
             ", domain='" + domain + "'" +
-            ", isrootnode='" + isrootnode + "'" +
             '}';
     }
 }

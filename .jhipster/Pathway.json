@@ -80,17 +80,13 @@
             ],
             "fieldValidateRulesMaxlength": "255"
         },
-        {
-            "fieldName": "isabstract",
+		{
+            "fieldName": "isrootnode",
             "fieldType": "Boolean"
         },
         {
-            "fieldName": "condition",
-            "fieldType": "String",
-            "fieldValidateRules": [
-                "maxlength"
-            ],
-            "fieldValidateRulesMaxlength": "25"
+            "fieldName": "isabstract",
+            "fieldType": "Boolean"
         },
         {
             "fieldName": "status",
@@ -125,10 +121,6 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "25"
-        },
-        {
-            "fieldName": "isrootnode",
-            "fieldType": "Boolean"
         }
     ],
     "changelogDate": "201612310810",

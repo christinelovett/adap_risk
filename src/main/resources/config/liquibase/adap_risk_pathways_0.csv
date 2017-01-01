@@ -1,3 +1,14 @@
-id,name,nameshort,description,condition,isabstract,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
-100,Pathway One,P1,Pathway One Generic Test,And,True,Active,echasin,2016-12-31 00:00:00,TEST,null
-110,Pathway Two,P2,Pathway Two Generic Test,And,True,Active,echasin,2016-12-31 00:00:00,TEST,null
+id,name,nameshort,description,isrootnode,isabstract,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
+100,Goal One,G1,Goal One Generic Test Case,true,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+110,Activity Two,A2,Activity Two Generic Test Case,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+120,Activity Three,A3,Activity Three Generic Test Case,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+130,Pathway Four,PW4,Pathway Four Generic Test Case,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+140,Pathway Five,PW5,Pathway Five Generic Test Case,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+150,Pathway sIX,PW5,Pathway Six Generic Test Case,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+200,Steal Car,Steal Car,Goal Steal Car POC,true,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+210,Unlock Door,Unlock DOor,Activity Unlock Car-Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+220,Smash Window,Smash Window,Pathway Smash Window - Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+230,Pick Lock,Pick Lock,Pathway Pick Lock - Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+240,Start Engine,Start Engine,Activity Start Engine - Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+250,Hot Wire,Hot Wire,Pathway Hot Wire - Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600
+260,Screw Driverin Ingition,Screw Driver,Pathway Screw Driver in Ignition - Steal Car POC ,false,True,Active,echasin,2016-12-31 00:00:00,TEST,600

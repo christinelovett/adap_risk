@@ -80,6 +80,11 @@ public class Category implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Countermeasure> countermeasures = new HashSet<>();
 
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Weapon> weapons = new HashSet<>();
+
     public Long getId() {
         return id;
     }
@@ -174,6 +179,14 @@ public class Category implements Serializable {
 
     public void setCountermeasures(Set<Countermeasure> countermeasures) {
         this.countermeasures = countermeasures;
+    }
+
+    public Set<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public void setWeapons(Set<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     @Override

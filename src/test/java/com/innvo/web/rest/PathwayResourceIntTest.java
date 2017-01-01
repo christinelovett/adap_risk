@@ -49,10 +49,11 @@ public class PathwayResourceIntTest {
     private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
+    private static final Boolean DEFAULT_ISROOTNODE = false;
+    private static final Boolean UPDATED_ISROOTNODE = true;
+
     private static final Boolean DEFAULT_ISABSTRACT = false;
     private static final Boolean UPDATED_ISABSTRACT = true;
-    private static final String DEFAULT_CONDITION = "AAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_CONDITION = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
     private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
@@ -63,9 +64,6 @@ public class PathwayResourceIntTest {
     private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
     private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
     private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
-
-    private static final Boolean DEFAULT_ISROOTNODE = false;
-    private static final Boolean UPDATED_ISROOTNODE = true;
 
     @Inject
     private PathwayRepository pathwayRepository;
@@ -109,13 +107,12 @@ public class PathwayResourceIntTest {
         pathway.setName(DEFAULT_NAME);
         pathway.setNameshort(DEFAULT_NAMESHORT);
         pathway.setDescription(DEFAULT_DESCRIPTION);
+        pathway.setIsrootnode(DEFAULT_ISROOTNODE);
         pathway.setIsabstract(DEFAULT_ISABSTRACT);
-        pathway.setCondition(DEFAULT_CONDITION);
         pathway.setStatus(DEFAULT_STATUS);
         pathway.setLastmodifiedby(DEFAULT_LASTMODIFIEDBY);
         pathway.setLastmodifieddatetime(DEFAULT_LASTMODIFIEDDATETIME);
         pathway.setDomain(DEFAULT_DOMAIN);
-        pathway.setIsrootnode(DEFAULT_ISROOTNODE);
         return pathway;
     }
 
@@ -144,13 +141,12 @@ public class PathwayResourceIntTest {
         assertThat(testPathway.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPathway.getNameshort()).isEqualTo(DEFAULT_NAMESHORT);
         assertThat(testPathway.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testPathway.isIsrootnode()).isEqualTo(DEFAULT_ISROOTNODE);
         assertThat(testPathway.isIsabstract()).isEqualTo(DEFAULT_ISABSTRACT);
-        assertThat(testPathway.getCondition()).isEqualTo(DEFAULT_CONDITION);
         assertThat(testPathway.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testPathway.getLastmodifiedby()).isEqualTo(DEFAULT_LASTMODIFIEDBY);
         assertThat(testPathway.getLastmodifieddatetime()).isEqualTo(DEFAULT_LASTMODIFIEDDATETIME);
         assertThat(testPathway.getDomain()).isEqualTo(DEFAULT_DOMAIN);
-        assertThat(testPathway.isIsrootnode()).isEqualTo(DEFAULT_ISROOTNODE);
 
         // Validate the Pathway in ElasticSearch
         Pathway pathwayEs = pathwaySearchRepository.findOne(testPathway.getId());
@@ -279,13 +275,12 @@ public class PathwayResourceIntTest {
                 .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
                 .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())))
                 .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
-                .andExpect(jsonPath("$.[*].condition").value(hasItem(DEFAULT_CONDITION.toString())))
                 .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
                 .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
-                .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())));
+                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -302,13 +297,12 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.nameshort").value(DEFAULT_NAMESHORT.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.isrootnode").value(DEFAULT_ISROOTNODE.booleanValue()))
             .andExpect(jsonPath("$.isabstract").value(DEFAULT_ISABSTRACT.booleanValue()))
-            .andExpect(jsonPath("$.condition").value(DEFAULT_CONDITION.toString()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
             .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
-            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()))
-            .andExpect(jsonPath("$.isrootnode").value(DEFAULT_ISROOTNODE.booleanValue()));
+            .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
     @Test
@@ -332,13 +326,12 @@ public class PathwayResourceIntTest {
         updatedPathway.setName(UPDATED_NAME);
         updatedPathway.setNameshort(UPDATED_NAMESHORT);
         updatedPathway.setDescription(UPDATED_DESCRIPTION);
+        updatedPathway.setIsrootnode(UPDATED_ISROOTNODE);
         updatedPathway.setIsabstract(UPDATED_ISABSTRACT);
-        updatedPathway.setCondition(UPDATED_CONDITION);
         updatedPathway.setStatus(UPDATED_STATUS);
         updatedPathway.setLastmodifiedby(UPDATED_LASTMODIFIEDBY);
         updatedPathway.setLastmodifieddatetime(UPDATED_LASTMODIFIEDDATETIME);
         updatedPathway.setDomain(UPDATED_DOMAIN);
-        updatedPathway.setIsrootnode(UPDATED_ISROOTNODE);
 
         restPathwayMockMvc.perform(put("/api/pathways")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -352,13 +345,12 @@ public class PathwayResourceIntTest {
         assertThat(testPathway.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPathway.getNameshort()).isEqualTo(UPDATED_NAMESHORT);
         assertThat(testPathway.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testPathway.isIsrootnode()).isEqualTo(UPDATED_ISROOTNODE);
         assertThat(testPathway.isIsabstract()).isEqualTo(UPDATED_ISABSTRACT);
-        assertThat(testPathway.getCondition()).isEqualTo(UPDATED_CONDITION);
         assertThat(testPathway.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testPathway.getLastmodifiedby()).isEqualTo(UPDATED_LASTMODIFIEDBY);
         assertThat(testPathway.getLastmodifieddatetime()).isEqualTo(UPDATED_LASTMODIFIEDDATETIME);
         assertThat(testPathway.getDomain()).isEqualTo(UPDATED_DOMAIN);
-        assertThat(testPathway.isIsrootnode()).isEqualTo(UPDATED_ISROOTNODE);
 
         // Validate the Pathway in ElasticSearch
         Pathway pathwayEs = pathwaySearchRepository.findOne(testPathway.getId());
@@ -402,12 +394,11 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())))
             .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
-            .andExpect(jsonPath("$.[*].condition").value(hasItem(DEFAULT_CONDITION.toString())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
             .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())))
-            .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())));
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }

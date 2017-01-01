@@ -1,12 +1,12 @@
 {
     "relationships": [
-         {
+        {
             "relationshipName": "recordtype",
             "otherEntityName": "recordtype",
             "relationshipType": "many-to-one",
             "otherEntityField": "name"
         },
-		{
+        {
             "relationshipName": "category",
             "otherEntityName": "category",
             "relationshipType": "many-to-many",
@@ -19,6 +19,12 @@
             "relationshipType": "many-to-many",
             "otherEntityField": "name",
             "ownerSide": true
+        },
+        {
+            "relationshipName": "pathwaycountermeasurembr",
+            "otherEntityName": "pathwaycountermeasurembr",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "countermeasure"
         }
     ],
     "fields": [
@@ -30,6 +36,27 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "50"
+        },
+        {
+            "fieldName": "nameshort",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "20"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "255"
+        },
+        {
+            "fieldName": "isabstract",
+            "fieldType": "Boolean"
         },
         {
             "fieldName": "status",

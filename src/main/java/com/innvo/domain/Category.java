@@ -68,7 +68,22 @@ public class Category implements Serializable {
     @ManyToMany(mappedBy = "categories")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Scenario> scenarios = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathway> pathways = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Countermeasure> countermeasures = new HashSet<>();
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Weapon> weapons = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -142,12 +157,36 @@ public class Category implements Serializable {
         this.subcategories = subcategories;
     }
 
+    public Set<Scenario> getScenarios() {
+        return scenarios;
+    }
+
+    public void setScenarios(Set<Scenario> scenarios) {
+        this.scenarios = scenarios;
+    }
+
+    public Set<Pathway> getPathways() {
+        return pathways;
+    }
+
+    public void setPathways(Set<Pathway> pathways) {
+        this.pathways = pathways;
+    }
+
     public Set<Countermeasure> getCountermeasures() {
         return countermeasures;
     }
 
     public void setCountermeasures(Set<Countermeasure> countermeasures) {
         this.countermeasures = countermeasures;
+    }
+
+    public Set<Weapon> getWeapons() {
+        return weapons;
+    }
+
+    public void setWeapons(Set<Weapon> weapons) {
+        this.weapons = weapons;
     }
 
     @Override

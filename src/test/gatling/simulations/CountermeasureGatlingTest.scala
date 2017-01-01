@@ -68,7 +68,7 @@ class CountermeasureGatlingTest extends Simulation {
             .exec(http("Create new countermeasure")
             .post("/api/countermeasures")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "nameshort":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "isabstract":null, "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_countermeasure_url"))).exitHereIfFailed
             .pause(10)

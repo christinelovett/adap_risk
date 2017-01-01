@@ -1,0 +1,3 @@
+id,name,nameshort,description,isabstract,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
+100,Scenario One,SC1,Generic POC,TRUE,Active,echasin,2016-12-31 00:00:00,TEST,500
+200,Steal Car,SC2,Steal Car Scenario POC,TRUE,Active,echasin,2016-12-31 00:00:00,TEST,500

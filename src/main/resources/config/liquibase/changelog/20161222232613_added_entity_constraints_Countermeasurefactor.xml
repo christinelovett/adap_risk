@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <!--
+        Added the constraints for entity Countermeasurefactor.
+    -->
+    <changeSet id="20161222232613-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="countermeasure_id"
+                                 baseTableName="countermeasurefactor"
+                                 constraintName="fk_countermeasurefactor_countermeasure_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="countermeasure"/>
+
+        <addForeignKeyConstraint baseColumnNames="pathway_id"
+                                 baseTableName="countermeasurefactor"
+                                 constraintName="fk_countermeasurefactor_pathway_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pathway"/>
+
+        <addForeignKeyConstraint baseColumnNames="countermeasurefactortype_id"
+                                 baseTableName="countermeasurefactor"
+                                 constraintName="fk_countermeasurefactor_countermeasurefactortype_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="countermeasurefactortype"/>
+
+        <addForeignKeyConstraint baseColumnNames="countermeasurefactors_id"
+                                 baseTableName="countermeasurefactor_weapon"
+                                 constraintName="fk_countermeasurefactor_weapon_countermeasurefactors_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="countermeasurefactor"/>
+        <addForeignKeyConstraint baseColumnNames="weapons_id"
+                                 baseTableName="countermeasurefactor_weapon"
+                                 constraintName="fk_countermeasurefactor_weapon_weapons_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="weapon"/>
+        
+    </changeSet>
+</databaseChangeLog>

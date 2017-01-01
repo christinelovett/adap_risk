@@ -33,11 +33,11 @@
                 <constraints nullable="true" />
             </column>
             
-            <column name="isabstract" type="bit">
+            <column name="isrootnode" type="bit">
                 <constraints nullable="true" />
             </column>
             
-            <column name="condition" type="varchar(25)">
+            <column name="isabstract" type="bit">
                 <constraints nullable="true" />
             </column>
             
@@ -55,10 +55,6 @@
             
             <column name="domain" type="varchar(25)">
                 <constraints nullable="false" />
-            </column>
-            
-            <column name="isrootnode" type="bit">
-                <constraints nullable="true" />
             </column>
             
             <column name="recordtype_id" type="bigint">

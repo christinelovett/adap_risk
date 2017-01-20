@@ -12,4 +12,8 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface ScenariopathwaymbrRepository extends JpaRepository<Scenariopathwaymbr,Long> {
 
+	Scenariopathwaymbr findByScenarioIdAndPathwayIsrootnode(long id,boolean isrootnode);
+
+	List<Scenariopathwaymbr> findByScenarioId(long id);
+
 }

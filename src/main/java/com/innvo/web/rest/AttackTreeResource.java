@@ -1,5 +1,6 @@
 package com.innvo.web.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ import com.innvo.domain.Scenariopathwaymbr;
 import com.innvo.repository.PathwaycountermeasurembrRepository;
 import com.innvo.repository.PathwaypathwaymbrRepository;
 import com.innvo.repository.ScenariopathwaymbrRepository;
+import com.innvo.web.rest.util.PathwayCountermeasureUtil;
 
 /**
  * 
@@ -84,10 +86,18 @@ public class AttackTreeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<Pathwaypathwaymbr> getPathway(@PathVariable Long id) {
+        public List<PathwayCountermeasureUtil> getPathway(@PathVariable Long id) {
             log.debug("REST request to get logic operator : {}", id);
+            List<PathwayCountermeasureUtil> pathwayCountermeasureUtils=new ArrayList<PathwayCountermeasureUtil>();
             List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayId(id);
-            return pathwaypathwaymbrs;
+            for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
+            	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(pathwaypathwaymbr.getChildpathway().getId());
+                PathwayCountermeasureUtil pathwayCountermeasureUtil=new PathwayCountermeasureUtil();
+                pathwayCountermeasureUtil.setPathwaypathwaymbr(pathwaypathwaymbr);
+                pathwayCountermeasureUtil.setPathwaycountermeasurembrs(pathwaycountermeasurembr);
+                pathwayCountermeasureUtils.add(pathwayCountermeasureUtil);
+            }
+            return pathwayCountermeasureUtils;
       }
     
     /**
@@ -99,9 +109,9 @@ public class AttackTreeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public Pathwaycountermeasurembr getCounterMeasure(@PathVariable Long id) {
+        public List<Pathwaycountermeasurembr> getCounterMeasure(@PathVariable Long id) {
             log.debug("REST request to get logic operator : {}", id);
-            Pathwaycountermeasurembr  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(id);
+            List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(id);
             return pathwaycountermeasurembr;
       }
     

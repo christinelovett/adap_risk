@@ -12,5 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface PathwaycountermeasurembrRepository extends JpaRepository<Pathwaycountermeasurembr,Long> {
 	
-	Pathwaycountermeasurembr findByPathwayId(long id);
+	List<Pathwaycountermeasurembr> findByPathwayId(long id);
 }

@@ -1,0 +1,5 @@
+id, name, nameshort, description, isabstract, status, lastmodifiedby, lastmodifieddatetime, domain, recordtype_id
+100020,"Bullet Proof Glass","Bullet Proof Glass","Bullet Proof Glass is an expensive counter measure",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100022
+100021,"Car Alarm","Car Alarm","Car Alarm is Countermeasure (Deterent)",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100022
+100023,"Engine Immobilzer","Engine Immobilizer","Engine Immobilizer is a Counter Measure",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100022
+100024,"Sidewinder Lock","Sidewinder Lock","Sidewinder Lock is a Counter Measure",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100022

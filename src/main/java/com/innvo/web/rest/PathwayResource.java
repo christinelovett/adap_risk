@@ -7,13 +7,14 @@ import com.innvo.repository.PathwayRepository;
 import com.innvo.repository.search.PathwaySearchRepository;
 import com.innvo.web.rest.util.HeaderUtil;
 import com.innvo.web.rest.util.PaginationUtil;
+
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,9 +51,7 @@ public class PathwayResource {
      * @return the ResponseEntity with status 201 (Created) and with body the new pathway, or with status 400 (Bad Request) if the pathway has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/pathways",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/pathways")
     @Timed
     public ResponseEntity<Pathway> createPathway(@Valid @RequestBody Pathway pathway) throws URISyntaxException {
         log.debug("REST request to save Pathway : {}", pathway);
@@ -75,9 +74,7 @@ public class PathwayResource {
      * or with status 500 (Internal Server Error) if the pathway couldnt be updated
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @RequestMapping(value = "/pathways",
-        method = RequestMethod.PUT,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping("/pathways")
     @Timed
     public ResponseEntity<Pathway> updatePathway(@Valid @RequestBody Pathway pathway) throws URISyntaxException {
         log.debug("REST request to update Pathway : {}", pathway);
@@ -98,11 +95,9 @@ public class PathwayResource {
      * @return the ResponseEntity with status 200 (OK) and the list of pathways in body
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/pathways",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/pathways")
     @Timed
-    public ResponseEntity<List<Pathway>> getAllPathways(Pageable pageable)
+    public ResponseEntity<List<Pathway>> getAllPathways(@ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to get a page of Pathways");
         Page<Pathway> page = pathwayRepository.findAll(pageable);
@@ -116,9 +111,7 @@ public class PathwayResource {
      * @param id the id of the pathway to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the pathway, or with status 404 (Not Found)
      */
-    @RequestMapping(value = "/pathways/{id}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/pathways/{id}")
     @Timed
     public ResponseEntity<Pathway> getPathway(@PathVariable Long id) {
         log.debug("REST request to get Pathway : {}", id);
@@ -136,9 +129,7 @@ public class PathwayResource {
      * @param id the id of the pathway to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @RequestMapping(value = "/pathways/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping("/pathways/{id}")
     @Timed
     public ResponseEntity<Void> deletePathway(@PathVariable Long id) {
         log.debug("REST request to delete Pathway : {}", id);
@@ -156,11 +147,9 @@ public class PathwayResource {
      * @return the result of the search
      * @throws URISyntaxException if there is an error to generate the pagination HTTP headers
      */
-    @RequestMapping(value = "/_search/pathways",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping("/_search/pathways")
     @Timed
-    public ResponseEntity<List<Pathway>> searchPathways(@RequestParam String query, Pageable pageable)
+    public ResponseEntity<List<Pathway>> searchPathways(@RequestParam String query, @ApiParam Pageable pageable)
         throws URISyntaxException {
         log.debug("REST request to search for a page of Pathways for query {}", query);
         Page<Pathway> page = pathwaySearchRepository.search(queryStringQuery(query), pageable);

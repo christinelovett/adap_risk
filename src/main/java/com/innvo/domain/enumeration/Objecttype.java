@@ -4,5 +4,5 @@ package com.innvo.domain.enumeration;
  * The Objecttype enumeration.
  */
 public enum Objecttype {
-	Asset,Organization,Person,Location,Event,Project,Portfolio,Activity,Scenario,Pathway,Vector,Countermeasure,Weapon
+	Asset,Organization,Person,Location,Event,Project,Portfolio,Activity,Scenario,Pathway,Vector,Countermeasure,Target,Weapon
 }

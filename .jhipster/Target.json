@@ -21,44 +21,11 @@
             "ownerSide": true
         },
         {
-            "relationshipName": "scenariopathwaymbr",
-            "otherEntityName": "scenariopathwaymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "pathway"
-        },
-        {
-            "relationshipName": "parentpathwaypathwaybr",
-            "otherEntityName": "pathwaypathwaymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "parentpathway"
-        },
-        {
-            "relationshipName": "childpathwaypathwaymbr",
-            "otherEntityName": "pathwaypathwaymbr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "childpathway"
-        },
-        {
-            "relationshipName": "weapon",
-            "otherEntityName": "weapon",
+            "relationshipName": "pathway",
+            "otherEntityName": "pathway",
             "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "pathway"
-        },
-        {
-            "relationshipName": "pathwaycountermeasurembr",
-            "otherEntityName": "pathwaycountermeasurembr",
-            "relationshipType": "one-to-many",
-            "otherEntityRelationshipName": "pathway"
-        },
-        {
-            "relationshipName": "target",
-            "otherEntityName": "target",
-            "relationshipType": "many-to-many",
-            "otherEntityField": "name",
-            "ownerSide": true,
-            "otherEntityRelationshipName": "pathway"
+            "ownerSide": false,
+            "otherEntityRelationshipName": "target"
         }
     ],
     "fields": [
@@ -87,10 +54,6 @@
                 "maxlength"
             ],
             "fieldValidateRulesMaxlength": "255"
-        },
-        {
-            "fieldName": "isrootnode",
-            "fieldType": "Boolean"
         },
         {
             "fieldName": "isabstract",
@@ -131,10 +94,10 @@
             "fieldValidateRulesMaxlength": "25"
         }
     ],
-    "changelogDate": "201612310810",
+    "changelogDate": "201701310757",
     "dto": "no",
     "service": "no",
-    "entityTableName": "pathway",
+    "entityTableName": "target",
     "pagination": "pagination",
     "microserviceName": "adap_risk",
     "searchEngine": "elasticsearch"

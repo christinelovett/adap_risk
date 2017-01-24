@@ -7,9 +7,9 @@ import org.slf4j.LoggerFactory
 import scala.concurrent.duration._
 
 /**
- * Performance test for the Pathway entity.
+ * Performance test for the Target entity.
  */
-class PathwayGatlingTest extends Simulation {
+class TargetGatlingTest extends Simulation {
 
     val context: LoggerContext = LoggerFactory.getILoggerFactory.asInstanceOf[LoggerContext]
     // Log all HTTP requests
@@ -42,7 +42,7 @@ class PathwayGatlingTest extends Simulation {
         "Authorization" -> "${access_token}"
     )
 
-    val scn = scenario("Test the Pathway entity")
+    val scn = scenario("Test the Target entity")
         .exec(http("First unauthenticated request")
         .get("/api/account")
         .headers(headers_http)
@@ -60,26 +60,26 @@ class PathwayGatlingTest extends Simulation {
         .check(status.is(200)))
         .pause(10)
         .repeat(2) {
-            exec(http("Get all pathways")
-            .get("/adap_risk/api/pathways")
+            exec(http("Get all targets")
+            .get("/adap_risk/api/targets")
             .headers(headers_http_authenticated)
             .check(status.is(200)))
             .pause(10 seconds, 20 seconds)
-            .exec(http("Create new pathway")
-            .post("/adap_risk/api/pathways")
+            .exec(http("Create new target")
+            .post("/adap_risk/api/targets")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "nameshort":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "isrootnode":null, "isabstract":null, "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "name":"SAMPLE_TEXT", "nameshort":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "isabstract":null, "status":"SAMPLE_TEXT", "lastmodifiedby":"SAMPLE_TEXT", "lastmodifieddatetime":"2020-01-01T00:00:00.000Z", "domain":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
-            .check(headerRegex("Location", "(.*)").saveAs("new_pathway_url"))).exitHereIfFailed
+            .check(headerRegex("Location", "(.*)").saveAs("new_target_url"))).exitHereIfFailed
             .pause(10)
             .repeat(5) {
-                exec(http("Get created pathway")
-                .get("/adap_risk${new_pathway_url}")
+                exec(http("Get created target")
+                .get("/adap_risk${new_target_url}")
                 .headers(headers_http_authenticated))
                 .pause(10)
             }
-            .exec(http("Delete created pathway")
-            .delete("/adap_risk${new_pathway_url}")
+            .exec(http("Delete created target")
+            .delete("/adap_risk${new_target_url}")
             .headers(headers_http_authenticated))
             .pause(10)
         }

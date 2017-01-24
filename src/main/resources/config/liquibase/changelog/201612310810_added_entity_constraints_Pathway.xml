@@ -47,5 +47,16 @@
                                  referencedColumnNames="id"
                                  referencedTableName="weapon"/>
         
+        <addForeignKeyConstraint baseColumnNames="pathways_id"
+                                 baseTableName="pathway_target"
+                                 constraintName="fk_pathway_target_pathways_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="pathway"/>
+        <addForeignKeyConstraint baseColumnNames="targets_id"
+                                 baseTableName="pathway_target"
+                                 constraintName="fk_pathway_target_targets_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="target"/>
+        
     </changeSet>
 </databaseChangeLog>

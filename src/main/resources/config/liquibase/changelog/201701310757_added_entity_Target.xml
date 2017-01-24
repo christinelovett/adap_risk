@@ -17,10 +17,10 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Pathway.
+        Added the entity Target.
     -->
-    <changeSet id="201612310810-1" author="jhipster">
-        <createTable tableName="pathway">
+    <changeSet id="201701310757-1" author="jhipster">
+        <createTable tableName="target">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -33,10 +33,6 @@
             </column>
             
             <column name="description" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-            
-            <column name="isrootnode" type="boolean">
                 <constraints nullable="true" />
             </column>
             
@@ -66,51 +62,29 @@
 
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
-        <dropDefaultValue tableName="pathway" columnName="lastmodifieddatetime" columnDataType="datetime"/>
+        <dropDefaultValue tableName="target" columnName="lastmodifieddatetime" columnDataType="datetime"/>
         
-        <createTable tableName="pathway_category">
+        <createTable tableName="target_category">
             <column name="categories_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="pathways_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="pathways_id, categories_id" tableName="pathway_category"/>
-        
-        <createTable tableName="pathway_subcategory">
-            <column name="subcategories_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="pathways_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="pathways_id, subcategories_id" tableName="pathway_subcategory"/>
-        
-        <createTable tableName="pathway_weapon">
-            <column name="weapons_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="pathways_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="pathways_id, weapons_id" tableName="pathway_weapon"/>
-        
-        <createTable tableName="pathway_target">
             <column name="targets_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="pathways_id" type="bigint">
+        </createTable>
+
+        <addPrimaryKey columnNames="targets_id, categories_id" tableName="target_category"/>
+        
+        <createTable tableName="target_subcategory">
+            <column name="subcategories_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="targets_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
-        <addPrimaryKey columnNames="pathways_id, targets_id" tableName="pathway_target"/>
+        <addPrimaryKey columnNames="targets_id, subcategories_id" tableName="target_subcategory"/>
         
     </changeSet>
 </databaseChangeLog>

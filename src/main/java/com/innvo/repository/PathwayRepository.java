@@ -13,10 +13,10 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface PathwayRepository extends JpaRepository<Pathway,Long> {
 
-    @Query("select distinct pathway from Pathway pathway left join fetch pathway.categories left join fetch pathway.subcategories left join fetch pathway.weapons")
+    @Query("select distinct pathway from Pathway pathway left join fetch pathway.categories left join fetch pathway.subcategories left join fetch pathway.weapons left join fetch pathway.targets")
     List<Pathway> findAllWithEagerRelationships();
 
-    @Query("select pathway from Pathway pathway left join fetch pathway.categories left join fetch pathway.subcategories left join fetch pathway.weapons where pathway.id =:id")
+    @Query("select pathway from Pathway pathway left join fetch pathway.categories left join fetch pathway.subcategories left join fetch pathway.weapons left join fetch pathway.targets where pathway.id =:id")
     Pathway findOneWithEagerRelationships(@Param("id") Long id);
 
 }

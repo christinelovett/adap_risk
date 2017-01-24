@@ -42,6 +42,13 @@
             "relationshipType": "many-to-many",
             "ownerSide": false,
             "otherEntityRelationshipName": "category"
+        },
+        {
+            "relationshipName": "target",
+            "otherEntityName": "target",
+            "relationshipType": "many-to-many",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "category"
         }
     ],
     "fields": [

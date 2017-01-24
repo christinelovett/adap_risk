@@ -1,6 +1,7 @@
 package com.innvo.web.rest;
 
 import com.innvo.AdapRiskApp;
+
 import com.innvo.domain.Pathway;
 import com.innvo.repository.PathwayRepository;
 import com.innvo.repository.search.PathwaySearchRepository;
@@ -8,28 +9,28 @@ import com.innvo.repository.search.PathwaySearchRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.hamcrest.Matchers.hasItem;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import java.time.Instant;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.ZoneOffset;
 import java.time.ZoneId;
 import java.util.List;
 
+import static com.innvo.web.rest.TestUtil.sameInstant;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,29 +42,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = AdapRiskApp.class)
 public class PathwayResourceIntTest {
-    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").withZone(ZoneId.of("Z"));
-    private static final String DEFAULT_NAME = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
-    private static final String DEFAULT_NAMESHORT = "AAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_NAMESHORT = "BBBBBBBBBBBBBBBBBBBB";
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final String DEFAULT_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_NAME = "BBBBBBBBBB";
+
+    private static final String DEFAULT_NAMESHORT = "AAAAAAAAAA";
+    private static final String UPDATED_NAMESHORT = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
+    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_ISROOTNODE = false;
     private static final Boolean UPDATED_ISROOTNODE = true;
 
     private static final Boolean DEFAULT_ISABSTRACT = false;
     private static final Boolean UPDATED_ISABSTRACT = true;
-    private static final String DEFAULT_STATUS = "AAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_STATUS = "BBBBBBBBBBBBBBBBBBBBBBBBB";
-    private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_LASTMODIFIEDBY = "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
 
-    private static final ZonedDateTime DEFAULT_LASTMODIFIEDDATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneId.systemDefault());
+    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
+    private static final String UPDATED_STATUS = "BBBBBBBBBB";
+
+    private static final String DEFAULT_LASTMODIFIEDBY = "AAAAAAAAAA";
+    private static final String UPDATED_LASTMODIFIEDBY = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_LASTMODIFIEDDATETIME = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
     private static final ZonedDateTime UPDATED_LASTMODIFIEDDATETIME = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
-    private static final String DEFAULT_LASTMODIFIEDDATETIME_STR = dateTimeFormatter.format(DEFAULT_LASTMODIFIEDDATETIME);
-    private static final String DEFAULT_DOMAIN = "AAAAAAAAAAAAAAAAAAAAAAAAA";
-    private static final String UPDATED_DOMAIN = "BBBBBBBBBBBBBBBBBBBBBBBBB";
+
+    private static final String DEFAULT_DOMAIN = "AAAAAAAAAA";
+    private static final String UPDATED_DOMAIN = "BBBBBBBBBB";
 
     @Inject
     private PathwayRepository pathwayRepository;
@@ -84,7 +89,7 @@ public class PathwayResourceIntTest {
 
     private Pathway pathway;
 
-    @PostConstruct
+    @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         PathwayResource pathwayResource = new PathwayResource();
@@ -103,7 +108,6 @@ public class PathwayResourceIntTest {
      */
     public static Pathway createEntity(EntityManager em) {
         Pathway pathway = new Pathway();
-        pathway = new Pathway();
         pathway.setName(DEFAULT_NAME);
         pathway.setNameshort(DEFAULT_NAMESHORT);
         pathway.setDescription(DEFAULT_DESCRIPTION);
@@ -130,14 +134,14 @@ public class PathwayResourceIntTest {
         // Create the Pathway
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isCreated());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isCreated());
 
         // Validate the Pathway in the database
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeCreate + 1);
-        Pathway testPathway = pathways.get(pathways.size() - 1);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeCreate + 1);
+        Pathway testPathway = pathwayList.get(pathwayList.size() - 1);
         assertThat(testPathway.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testPathway.getNameshort()).isEqualTo(DEFAULT_NAMESHORT);
         assertThat(testPathway.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
@@ -155,6 +159,26 @@ public class PathwayResourceIntTest {
 
     @Test
     @Transactional
+    public void createPathwayWithExistingId() throws Exception {
+        int databaseSizeBeforeCreate = pathwayRepository.findAll().size();
+
+        // Create the Pathway with an existing ID
+        Pathway existingPathway = new Pathway();
+        existingPathway.setId(1L);
+
+        // An entity with an existing ID cannot be created, so this API call must fail
+        restPathwayMockMvc.perform(post("/api/pathways")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(existingPathway)))
+            .andExpect(status().isBadRequest());
+
+        // Validate the Alice in the database
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeCreate);
+    }
+
+    @Test
+    @Transactional
     public void checkNameIsRequired() throws Exception {
         int databaseSizeBeforeTest = pathwayRepository.findAll().size();
         // set the field null
@@ -163,12 +187,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -181,12 +205,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -199,12 +223,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -217,12 +241,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -235,12 +259,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -253,12 +277,12 @@ public class PathwayResourceIntTest {
         // Create the Pathway, which fails.
 
         restPathwayMockMvc.perform(post("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(pathway)))
-                .andExpect(status().isBadRequest());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isBadRequest());
 
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeTest);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeTest);
     }
 
     @Test
@@ -267,20 +291,20 @@ public class PathwayResourceIntTest {
         // Initialize the database
         pathwayRepository.saveAndFlush(pathway);
 
-        // Get all the pathways
+        // Get all the pathwayList
         restPathwayMockMvc.perform(get("/api/pathways?sort=id,desc"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
-                .andExpect(jsonPath("$.[*].id").value(hasItem(pathway.getId().intValue())))
-                .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-                .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
-                .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-                .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())))
-                .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
-                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
-                .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
-                .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
-                .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
+            .andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(jsonPath("$.[*].id").value(hasItem(pathway.getId().intValue())))
+            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
+            .andExpect(jsonPath("$.[*].nameshort").value(hasItem(DEFAULT_NAMESHORT.toString())))
+            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+            .andExpect(jsonPath("$.[*].isrootnode").value(hasItem(DEFAULT_ISROOTNODE.booleanValue())))
+            .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
+            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
+            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(sameInstant(DEFAULT_LASTMODIFIEDDATETIME))))
+            .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 
     @Test
@@ -301,7 +325,7 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.isabstract").value(DEFAULT_ISABSTRACT.booleanValue()))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.lastmodifiedby").value(DEFAULT_LASTMODIFIEDBY.toString()))
-            .andExpect(jsonPath("$.lastmodifieddatetime").value(DEFAULT_LASTMODIFIEDDATETIME_STR))
+            .andExpect(jsonPath("$.lastmodifieddatetime").value(sameInstant(DEFAULT_LASTMODIFIEDDATETIME)))
             .andExpect(jsonPath("$.domain").value(DEFAULT_DOMAIN.toString()));
     }
 
@@ -310,7 +334,7 @@ public class PathwayResourceIntTest {
     public void getNonExistingPathway() throws Exception {
         // Get the pathway
         restPathwayMockMvc.perform(get("/api/pathways/{id}", Long.MAX_VALUE))
-                .andExpect(status().isNotFound());
+            .andExpect(status().isNotFound());
     }
 
     @Test
@@ -334,14 +358,14 @@ public class PathwayResourceIntTest {
         updatedPathway.setDomain(UPDATED_DOMAIN);
 
         restPathwayMockMvc.perform(put("/api/pathways")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(updatedPathway)))
-                .andExpect(status().isOk());
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(updatedPathway)))
+            .andExpect(status().isOk());
 
         // Validate the Pathway in the database
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeUpdate);
-        Pathway testPathway = pathways.get(pathways.size() - 1);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeUpdate);
+        Pathway testPathway = pathwayList.get(pathwayList.size() - 1);
         assertThat(testPathway.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testPathway.getNameshort()).isEqualTo(UPDATED_NAMESHORT);
         assertThat(testPathway.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
@@ -359,6 +383,24 @@ public class PathwayResourceIntTest {
 
     @Test
     @Transactional
+    public void updateNonExistingPathway() throws Exception {
+        int databaseSizeBeforeUpdate = pathwayRepository.findAll().size();
+
+        // Create the Pathway
+
+        // If the entity doesn't have an ID, it will be created instead of just being updated
+        restPathwayMockMvc.perform(put("/api/pathways")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(pathway)))
+            .andExpect(status().isCreated());
+
+        // Validate the Pathway in the database
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeUpdate + 1);
+    }
+
+    @Test
+    @Transactional
     public void deletePathway() throws Exception {
         // Initialize the database
         pathwayRepository.saveAndFlush(pathway);
@@ -367,16 +409,16 @@ public class PathwayResourceIntTest {
 
         // Get the pathway
         restPathwayMockMvc.perform(delete("/api/pathways/{id}", pathway.getId())
-                .accept(TestUtil.APPLICATION_JSON_UTF8))
-                .andExpect(status().isOk());
+            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .andExpect(status().isOk());
 
         // Validate ElasticSearch is empty
         boolean pathwayExistsInEs = pathwaySearchRepository.exists(pathway.getId());
         assertThat(pathwayExistsInEs).isFalse();
 
         // Validate the database is empty
-        List<Pathway> pathways = pathwayRepository.findAll();
-        assertThat(pathways).hasSize(databaseSizeBeforeDelete - 1);
+        List<Pathway> pathwayList = pathwayRepository.findAll();
+        assertThat(pathwayList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
     @Test
@@ -398,7 +440,7 @@ public class PathwayResourceIntTest {
             .andExpect(jsonPath("$.[*].isabstract").value(hasItem(DEFAULT_ISABSTRACT.booleanValue())))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].lastmodifiedby").value(hasItem(DEFAULT_LASTMODIFIEDBY.toString())))
-            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(DEFAULT_LASTMODIFIEDDATETIME_STR)))
+            .andExpect(jsonPath("$.[*].lastmodifieddatetime").value(hasItem(sameInstant(DEFAULT_LASTMODIFIEDDATETIME))))
             .andExpect(jsonPath("$.[*].domain").value(hasItem(DEFAULT_DOMAIN.toString())));
     }
 }

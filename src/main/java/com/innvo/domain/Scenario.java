@@ -86,7 +86,13 @@ public class Scenario implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Scenariopathwaymbr> scenariopathwaymbrs = new HashSet<>();
 
-    public Long getId() {
+    @OneToMany(mappedBy = "scenario")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathwaypathwaymbr> pathwaypathwaymbrs = new HashSet<>();
+  
+
+	public Long getId() {
         return id;
     }
 
@@ -189,6 +195,14 @@ public class Scenario implements Serializable {
     public void setScenariopathwaymbrs(Set<Scenariopathwaymbr> scenariopathwaymbrs) {
         this.scenariopathwaymbrs = scenariopathwaymbrs;
     }
+     
+    public Set<Pathwaypathwaymbr> getPathwaypathwaymbrs() {
+		return pathwaypathwaymbrs;
+	}
+
+	public void setPathwaypathwaymbrs(Set<Pathwaypathwaymbr> pathwaypathwaymbrs) {
+		this.pathwaypathwaymbrs = pathwaypathwaymbrs;
+	}
 
     @Override
     public boolean equals(Object o) {

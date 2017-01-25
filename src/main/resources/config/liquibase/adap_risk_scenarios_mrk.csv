@@ -1,2 +1,4 @@
 id, name, nameshort, description, isabstract, status, lastmodifiedby,lastmodifieddatetime, domain, recordtype_id
 100007,"Steal a Car","Steal Car","Example Scenario for Stealing a Car",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100000
+100008,"Steal a Car TEST CASE","Steal Car TEST CASE","Example Scenario for Stealing a Car",TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100000
+100001,"TEST CASE More than Three Levels","3 Levels","Need to fix Attack to handle more than 3 levels",TRUE,"Active","echasin","2017-01-25 00:00:00","MRK",100000

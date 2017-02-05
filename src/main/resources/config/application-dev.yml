@@ -73,6 +73,16 @@ liquibase:
 server:
     port: 8087
 
+
+colors:
+     Attack Scenario: grean
+     Attack Vector: blue
+     Attack Method: red
+     Attack Goal: gray
+     Counter Measure Infrastructure: yellow
+     Counter Measure Policy: orange
+
+
 # ===================================================================
 # JHipster specific properties
 # ===================================================================

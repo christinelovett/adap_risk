@@ -10,6 +10,8 @@ public class PathwayCountermeasureUtil {
 	Pathwaypathwaymbr pathwaypathwaymbr;
 	
 	List<Pathwaycountermeasurembr> pathwaycountermeasurembrs;
+	
+	String color;
 
 	public Pathwaypathwaymbr getPathwaypathwaymbr() {
 		return pathwaypathwaymbr;
@@ -26,5 +28,14 @@ public class PathwayCountermeasureUtil {
 	public void setPathwaycountermeasurembrs(List<Pathwaycountermeasurembr> pathwaycountermeasurembrs) {
 		this.pathwaycountermeasurembrs = pathwaycountermeasurembrs;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+	
 	
 }

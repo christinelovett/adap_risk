@@ -29,6 +29,12 @@
             "otherEntityName": "weapon",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "recordtype"
+        }        ,
+        {
+            "relationshipName": "target",
+            "otherEntityName": "target",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "recordtype"
         }
     ],
     "fields": [

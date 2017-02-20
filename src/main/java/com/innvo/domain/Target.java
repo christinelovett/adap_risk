@@ -14,13 +14,13 @@ import java.util.Set;
 import java.util.Objects;
 
 /**
- * A Pathway.
+ * A Target.
  */
 @Entity
-@Table(name = "pathway")
+@Table(name = "target")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@Document(indexName = "pathway")
-public class Pathway implements Serializable {
+@Document(indexName = "target")
+public class Target implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -41,9 +41,6 @@ public class Pathway implements Serializable {
     @Size(max = 255)
     @Column(name = "description", length = 255)
     private String description;
-
-    @Column(name = "isrootnode")
-    private Boolean isrootnode;
 
     @Column(name = "isabstract")
     private Boolean isabstract;
@@ -72,51 +69,22 @@ public class Pathway implements Serializable {
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "pathway_category",
-               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
+    @JoinTable(name = "target_category",
+               joinColumns = @JoinColumn(name="targets_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="categories_id", referencedColumnName="ID"))
     private Set<Category> categories = new HashSet<>();
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "pathway_subcategory",
-               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
+    @JoinTable(name = "target_subcategory",
+               joinColumns = @JoinColumn(name="targets_id", referencedColumnName="ID"),
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "pathway")
+    @ManyToMany(mappedBy = "targets")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Scenariopathwaymbr> scenariopathwaymbrs = new HashSet<>();
-
-    @OneToMany(mappedBy = "parentpathway")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Pathwaypathwaymbr> parentpathwaypathwaybrs = new HashSet<>();
-
-    @OneToMany(mappedBy = "childpathway")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Pathwaypathwaymbr> childpathwaypathwaymbrs = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "pathway_weapon",
-               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="weapons_id", referencedColumnName="ID"))
-    private Set<Weapon> weapons = new HashSet<>();
-
-    @OneToMany(mappedBy = "pathway")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "pathway_target",
-               joinColumns = @JoinColumn(name="pathways_id", referencedColumnName="ID"),
-               inverseJoinColumns = @JoinColumn(name="targets_id", referencedColumnName="ID"))
-    private Set<Target> targets = new HashSet<>();
+    private Set<Pathway> pathways = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -148,14 +116,6 @@ public class Pathway implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Boolean isIsrootnode() {
-        return isrootnode;
-    }
-
-    public void setIsrootnode(Boolean isrootnode) {
-        this.isrootnode = isrootnode;
     }
 
     public Boolean isIsabstract() {
@@ -222,52 +182,12 @@ public class Pathway implements Serializable {
         this.subcategories = subcategories;
     }
 
-    public Set<Scenariopathwaymbr> getScenariopathwaymbrs() {
-        return scenariopathwaymbrs;
+    public Set<Pathway> getPathways() {
+        return pathways;
     }
 
-    public void setScenariopathwaymbrs(Set<Scenariopathwaymbr> scenariopathwaymbrs) {
-        this.scenariopathwaymbrs = scenariopathwaymbrs;
-    }
-
-    public Set<Pathwaypathwaymbr> getParentpathwaypathwaybrs() {
-        return parentpathwaypathwaybrs;
-    }
-
-    public void setParentpathwaypathwaybrs(Set<Pathwaypathwaymbr> pathwaypathwaymbrs) {
-        this.parentpathwaypathwaybrs = pathwaypathwaymbrs;
-    }
-
-    public Set<Pathwaypathwaymbr> getChildpathwaypathwaymbrs() {
-        return childpathwaypathwaymbrs;
-    }
-
-    public void setChildpathwaypathwaymbrs(Set<Pathwaypathwaymbr> pathwaypathwaymbrs) {
-        this.childpathwaypathwaymbrs = pathwaypathwaymbrs;
-    }
-
-    public Set<Weapon> getWeapons() {
-        return weapons;
-    }
-
-    public void setWeapons(Set<Weapon> weapons) {
-        this.weapons = weapons;
-    }
-
-    public Set<Pathwaycountermeasurembr> getPathwaycountermeasurembrs() {
-        return pathwaycountermeasurembrs;
-    }
-
-    public void setPathwaycountermeasurembrs(Set<Pathwaycountermeasurembr> pathwaycountermeasurembrs) {
-        this.pathwaycountermeasurembrs = pathwaycountermeasurembrs;
-    }
-
-    public Set<Target> getTargets() {
-        return targets;
-    }
-
-    public void setTargets(Set<Target> targets) {
-        this.targets = targets;
+    public void setPathways(Set<Pathway> pathways) {
+        this.pathways = pathways;
     }
 
     @Override
@@ -278,11 +198,11 @@ public class Pathway implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Pathway pathway = (Pathway) o;
-        if (pathway.id == null || id == null) {
+        Target target = (Target) o;
+        if (target.id == null || id == null) {
             return false;
         }
-        return Objects.equals(id, pathway.id);
+        return Objects.equals(id, target.id);
     }
 
     @Override
@@ -292,12 +212,11 @@ public class Pathway implements Serializable {
 
     @Override
     public String toString() {
-        return "Pathway{" +
+        return "Target{" +
             "id=" + id +
             ", name='" + name + "'" +
             ", nameshort='" + nameshort + "'" +
             ", description='" + description + "'" +
-            ", isrootnode='" + isrootnode + "'" +
             ", isabstract='" + isabstract + "'" +
             ", status='" + status + "'" +
             ", lastmodifiedby='" + lastmodifiedby + "'" +

@@ -1,0 +1,2 @@
+id, comment, status, lastmodifiedby, lastmodifieddatetime, domain, scenario_id, pathway_id
+100010,"The Steal Car Attack Vector is root node of the Attack Tree for Steal a Car Scenario","Active","echasin","2017-01-22 00:00:00","MRK",100007,100009

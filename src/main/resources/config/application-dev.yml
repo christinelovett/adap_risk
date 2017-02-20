@@ -32,10 +32,10 @@ spring:
         serialization.indent_output: true
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/adap_ms
+        url: jdbc:postgresql://localhost:5432/adap_mrk
         name:
-        username: root
-        password: root
+        username: postgres
+        password: postgres
     jpa:
         database-platform: com.innvo.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL

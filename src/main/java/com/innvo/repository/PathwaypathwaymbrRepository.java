@@ -1,6 +1,7 @@
 package com.innvo.repository;
 
 import com.innvo.domain.Pathwaypathwaymbr;
+import com.innvo.domain.Scenariopathwaymbr;
 
 import org.springframework.data.jpa.repository.*;
 
@@ -11,5 +12,7 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface PathwaypathwaymbrRepository extends JpaRepository<Pathwaypathwaymbr,Long> {
+
+	List<Pathwaypathwaymbr> findByParentpathwayId(long id);
 
 }

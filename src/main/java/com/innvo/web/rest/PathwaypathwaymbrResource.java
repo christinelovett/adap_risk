@@ -59,6 +59,11 @@ public class PathwaypathwaymbrResource {
         if (pathwaypathwaymbr.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("pathwaypathwaymbr", "idexists", "A new pathwaypathwaymbr cannot already have an ID")).body(null);
         }
+        System.out.println("7777777777777777777777777777777777777777777777777777777777777");
+        System.out.println(pathwaypathwaymbr.getScenario());
+        System.out.println(pathwaypathwaymbr.getParentpathway());
+        System.out.println(pathwaypathwaymbr.getChildpathway());
+        System.out.println("9999999999999999999999999999999999999999999999999999999999999");
         Pathwaypathwaymbr result = pathwaypathwaymbrRepository.save(pathwaypathwaymbr);
         pathwaypathwaymbrSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/pathwaypathwaymbrs/" + result.getId()))

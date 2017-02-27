@@ -59,6 +59,11 @@ public class ScenariopathwaymbrResource {
         if (scenariopathwaymbr.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("scenariopathwaymbr", "idexists", "A new scenariopathwaymbr cannot already have an ID")).body(null);
         }
+        System.out.println("1111111111111111111111111111");
+        System.out.println(scenariopathwaymbr);
+        System.out.println(scenariopathwaymbr.getPathway());
+        System.out.println(scenariopathwaymbr.getScenario());
+        System.out.println("22222222222222222222222222222222222222");
         Scenariopathwaymbr result = scenariopathwaymbrRepository.save(scenariopathwaymbr);
         scenariopathwaymbrSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/scenariopathwaymbrs/" + result.getId()))

@@ -62,8 +62,12 @@ public class Pathwaypathwaymbr implements Serializable {
     @ManyToOne
     @NotNull
     private Pathway childpathway;
+    
+    @ManyToOne
+    @NotNull
+    private Scenario scenario;
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
@@ -135,6 +139,14 @@ public class Pathwaypathwaymbr implements Serializable {
         this.childpathway = pathway;
     }
 
+    public Scenario getScenario() {
+  		return scenario;
+  	}
+
+  	public void setScenario(Scenario scenario) {
+  		this.scenario = scenario;
+  	}
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {

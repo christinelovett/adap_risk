@@ -15,4 +15,5 @@ public interface PathwaypathwaymbrRepository extends JpaRepository<Pathwaypathwa
 
 	List<Pathwaypathwaymbr> findByParentpathwayId(long id);
 
+	Pathwaypathwaymbr findByScenarioIdAndParentpathwayIdAndChildpathwayId(long scenarioId,long parentId,long childId);
 }

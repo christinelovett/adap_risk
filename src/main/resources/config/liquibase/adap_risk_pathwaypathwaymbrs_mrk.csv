@@ -1,7 +1,10 @@
-id, comment, logicoperator, status, lastmodifiedby, lastmodifieddatetime, domain, parentpathway_id, childpathway_id
-100011,"To  Steal Car an Adversary must Unlock Door","And","Active","echasin","2017-01-22 00:00:00","MRK",100009,100008
-100013,"To Steal Car an Adversay must Start Engine","And","Active","echasin","2017-01-22 00:00:00","MRK",100009,100012
-100015,"To Unlock a Door an Adversary can Smash Window","Or","Active","echasin","2017-01-22 00:00:00","MRK",100008,100014
-100016,"An Adversary can Unlock Door by Pick Lock","Or","Active","echasin","2017-01-22 00:00:00","MRK",100008,100017
-100017,"An Adversary can Start Engine by Hotwire","Or","Active","echasin","2017-01-22 00:00:00","MRK",100012,100019
-100018,"An Adversary can Start Engine by Screw Driver","Or","Active","echasin","2017-01-22 00:00:00","MRK",100012,100020
+id, comment, logicoperator, status, lastmodifiedby, lastmodifieddatetime, domain, parentpathway_id, childpathway_id,scenario_id
+100011,To  Steal Car an Adversary must Unlock Door,And,Active,echasin,1/22/2017 0:00,MRK,100009,100008,100007
+100013,To Steal Car an Adversay must Start Engine,And,Active,echasin,1/22/2017 0:00,MRK,100009,100012,100007
+100015,To Unlock a Door an Adversary can Smash Window,Or,Active,echasin,1/22/2017 0:00,MRK,100008,100014,100007
+100016,An Adversary can Unlock Door by Pick Lock,Or,Active,echasin,1/22/2017 0:00,MRK,100008,100017,100007
+100017,An Adversary can Start Engine by Hotwire,Or,Active,echasin,1/22/2017 0:00,MRK,100012,100019,100007
+100018,An Adversary can Start Engine by Screw Driver,Or,Active,echasin,1/22/2017 0:00,MRK,100012,100020,100007
+100006,"G1/AV1","And","Active","echasin","2017-01-25 00:00:00","MRK",100002,100003,100001
+100007,"AV1/AV2","And","Active","echasin","2017-01-25 00:00:00","MRK",100003,100004,100001
+100008,"AV2/AM3","And","Active","echasin","2017-01-25 00:00:00","MRK",100004,100007,100001

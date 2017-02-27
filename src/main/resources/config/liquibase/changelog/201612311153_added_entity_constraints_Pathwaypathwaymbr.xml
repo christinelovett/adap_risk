@@ -19,6 +19,12 @@
                                  constraintName="fk_pathwaypathwaymbr_childpathway_id"
                                  referencedColumnNames="id"
                                  referencedTableName="pathway"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="scenario_id"
+                                 baseTableName="pathwaypathwaymbr"
+                                 constraintName="fk_pathwaypathwaymbr_scenario_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="scenario"/>
 
     </changeSet>
 </databaseChangeLog>

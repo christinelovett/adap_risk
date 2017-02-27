@@ -48,12 +48,12 @@ public class Scenariopathwaymbr implements Serializable {
     @Column(name = "domain", length = 25, nullable = false)
     private String domain;
 
-    @ManyToOne
     @NotNull
+    @ManyToOne
     private Scenario scenario;
 
-    @ManyToOne
     @NotNull
+    @ManyToOne
     private Pathway pathway;
 
     public Long getId() {

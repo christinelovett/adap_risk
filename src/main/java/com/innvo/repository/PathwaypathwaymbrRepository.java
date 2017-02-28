@@ -14,6 +14,8 @@ import java.util.List;
 public interface PathwaypathwaymbrRepository extends JpaRepository<Pathwaypathwaymbr,Long> {
 
 	List<Pathwaypathwaymbr> findByParentpathwayId(long id);
+	
+	List<Pathwaypathwaymbr> findByParentpathwayIdAndScenarioId(long parentId,long scenarioId);
 
 	Pathwaypathwaymbr findByScenarioIdAndParentpathwayIdAndChildpathwayId(long scenarioId,long parentId,long childId);
 }

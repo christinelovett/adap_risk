@@ -103,14 +103,14 @@ public class AttackTreeResource {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getPathway/{id}",
+    @RequestMapping(value = "/getPathway/{parentId}/{scenarioId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<PathwayCountermeasureUtil> getPathway(@PathVariable Long id) throws IOException{
-            log.debug("REST request to get logic operator : {}", id);
+        public List<PathwayCountermeasureUtil> getPathway(@PathVariable("parentId") Long parentId,@PathVariable("scenarioId") Long scenarioId) throws IOException{
+            log.debug("REST request to get logic operator : {}", scenarioId);
             List<PathwayCountermeasureUtil> pathwayCountermeasureUtils=new ArrayList<PathwayCountermeasureUtil>();
-            List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayId(id);
+            List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayIdAndScenarioId(parentId, scenarioId);
             for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
             	   		     
             	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(pathwaypathwaymbr.getChildpathway().getId());

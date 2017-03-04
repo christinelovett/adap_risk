@@ -181,6 +181,14 @@ public class AttackTreeResource {
     }
     
  
+    /**
+     * 
+     * @param scenarioId
+     * @param parentId
+     * @param childId
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/getLineData/{scenarioId}/{parentId}/{childId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -192,4 +200,20 @@ public class AttackTreeResource {
     	return pathwaypathwaymbr;
     }
     
+    
+    /**
+     * 
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/pathwayByRecordtype/{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public List<Pathway> getPathwayByRecordtype(@PathVariable("name") String name) throws   IOException {
+
+    	List<Pathway> pathways= pathwayRepository.findByRecordtypeName(name);
+    	return pathways;
+    }
 }

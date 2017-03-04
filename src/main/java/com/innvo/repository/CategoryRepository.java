@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface CategoryRepository extends JpaRepository<Category,Long> {
 
+	List<Category> findByRecordtypeId(long id);
 }

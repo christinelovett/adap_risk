@@ -55,6 +55,10 @@ public class Pathwaycountermeasurembr implements Serializable {
     @ManyToOne
     @NotNull
     private Countermeasure countermeasure;
+    
+    @ManyToOne
+    @NotNull
+    private Scenario scenario;
 
     public Long getId() {
         return id;
@@ -120,7 +124,15 @@ public class Pathwaycountermeasurembr implements Serializable {
         this.countermeasure = countermeasure;
     }
 
-    @Override
+    public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

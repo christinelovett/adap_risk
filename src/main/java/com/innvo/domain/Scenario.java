@@ -91,6 +91,10 @@ public class Scenario implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Pathwaypathwaymbr> pathwaypathwaymbrs = new HashSet<>();
   
+    @OneToMany(mappedBy = "scenario")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Pathwaycountermeasurembr> pathwaycountermeasurembs = new HashSet<>();
 
 	public Long getId() {
         return id;
@@ -204,7 +208,15 @@ public class Scenario implements Serializable {
 		this.pathwaypathwaymbrs = pathwaypathwaymbrs;
 	}
 
-    @Override
+    public Set<Pathwaycountermeasurembr> getPathwaycountermeasurembs() {
+		return pathwaycountermeasurembs;
+	}
+
+	public void setPathwaycountermeasurembs(Set<Pathwaycountermeasurembr> pathwaycountermeasurembs) {
+		this.pathwaycountermeasurembs = pathwaycountermeasurembs;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

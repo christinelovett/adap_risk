@@ -1,12 +1,12 @@
-id, name, nameshort, description, isrootnode, isabstract, status, lastmodifiedby, lastmodifieddatetime, domain, recordtype_id
-100008,"Unlock Door:Attack Vector","Unlock Door","An Adversary must be able Unlock Door to be able to steal a car.",FALSE,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100001
-100009,"Steal Car:Attack Vector Goal","Steal Car","Steal Car is root node of the Attack Tree. Steal Car is the Attack Vector:Node",TRUE,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100019
-100012,"Start Engine:Attack Vector ","Start Engine","Start Engine is Attack Vector: Component",FALSE,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100001
-100014,"Smash Window:Attack Method","Smash Window","An Adversary can Unlock a car by Smashing a window",null,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100018
-100017,"Pick Lock:Attack Method","Pick Lock","An Adversary can Open Door by Pick Lock",null,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100018
-100019,"Hot Wire:Attack Method","Hot Wire","An Adversary can start Engine by Hot Wire",null,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100018
-100020,"Screw Driver:Attack Method","Screw Driver","An Adversary can start Engine by Screw Driver",null,TRUE,"Active","echasin","2017-01-22 00:00:00","MRK",100018
-100002,"Goal One","G1","Goal One",null,TRUE,"Active","echasin","2017-01-25 00:00:00","MRK",100019
-100003,"Attack Vector One","AV1","Attack Vector One",null,TRUE,"Active","echasin","2017-01-25 00:00:00","MRK",100001
-100004,"Attack Vector 2","AV2","Attack Vector 2",null,TRUE,"Active","echasin","2017-01-25 00:00:00","MRK",100001
-100007,"Attack Method Three","AM3","Attack Method Three",null,TRUE,"Active","echasin","2017-01-25 00:00:00","MRK",100018
+id,name,nameshort,description,isrootnode,isabstract,status,lastmodifiedby,lastmodifieddatetime,domain,recordtype_id
+100008,Unlock Door:Attack Vector,Unlock Door,An Adversary must be able Unlock Door to be able to steal a car.,FALSE,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100001
+100009,Steal Car:Attack Vector Goal,Steal Car,Steal Car is root node of the Attack Tree. Steal Car is the Attack Vector:Node,TRUE,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100019
+100012,Start Engine:Attack Vector ,Start Engine,Start Engine is Attack Vector: Component,FALSE,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100001
+100014,Smash Window:Attack Method,Smash Window,An Adversary can Unlock a car by Smashing a window,null,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100018
+100017,Pick Lock:Attack Method,Pick Lock,An Adversary can Open Door by Pick Lock,null,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100018
+100019,Hot Wire:Attack Method,Hot Wire,An Adversary can start Engine by Hot Wire,null,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100018
+100020,Screw Driver:Attack Method,Screw Driver,An Adversary can start Engine by Screw Driver,null,TRUE,Active,echasin,2017-01-22 00:00:00,MRK,100018
+100002,Goal One,G1,Goal One,TRUE,TRUE,Active,echasin,2017-01-25 00:00:00,MRK,100019
+100003,Attack Vector One,AV1,Attack Vector One,null,TRUE,Active,echasin,2017-01-25 00:00:00,MRK,100001
+100004,Attack Vector 2,AV2,Attack Vector 2,null,TRUE,Active,echasin,2017-01-25 00:00:00,MRK,100001
+100007,Attack Method Three,AM3,Attack Method Three,null,TRUE,Active,echasin,2017-01-25 00:00:00,MRK,100018

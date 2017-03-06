@@ -83,5 +83,10 @@
 
         <addPrimaryKey columnNames="scenarios_id, subcategories_id" tableName="scenario_subcategory"/>
         
+   	    <sql>
+    	   alter sequence scenario_id_seq restart 2000000;
+    	</sql>
+   
+   
     </changeSet>
 </databaseChangeLog>

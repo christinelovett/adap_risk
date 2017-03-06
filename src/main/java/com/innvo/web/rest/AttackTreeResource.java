@@ -113,10 +113,11 @@ public class AttackTreeResource {
             List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayIdAndScenarioId(parentId, scenarioId);
             for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
             	   		     
-            	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(pathwaypathwaymbr.getChildpathway().getId());
+            	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayIdAndScenarioId(pathwaypathwaymbr.getChildpathway().getId(),scenarioId);
                 PathwayCountermeasureUtil pathwayCountermeasureUtil=new PathwayCountermeasureUtil();
                 pathwayCountermeasureUtil.setPathwaypathwaymbr(pathwaypathwaymbr);
                 pathwayCountermeasureUtil.setPathwaycountermeasurembrs(pathwaycountermeasurembr);
+                
                 
                 
                  YamlReciever yamlReciever=new YamlReciever();
@@ -131,11 +132,13 @@ public class AttackTreeResource {
             return pathwayCountermeasureUtils;
       }
     
+    
     /**
      * 
      * @param id
      * @return
      */
+    /**
     @RequestMapping(value = "/getCounterMeasure/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -145,6 +148,7 @@ public class AttackTreeResource {
             List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(id);
             return pathwaycountermeasurembr;
       }
+    **/
     
     /**
      * 

@@ -197,11 +197,23 @@ public class AttackTreeResource {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public Pathwaypathwaymbr saveScenarioPathway(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
+        public Pathwaypathwaymbr getLineData(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
         		  @PathVariable("childId") Long childId) throws   IOException {
 
     	Pathwaypathwaymbr pathwaypathwaymbr= pathwaypathwaymbrRepository.findByScenarioIdAndParentpathwayIdAndChildpathwayId(scenarioId, parentId, childId);
     	return pathwaypathwaymbr;
+    }
+    
+    
+    @RequestMapping(value = "/removeLine/{scenarioId}/{parentId}/{childId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public void removeLine(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
+        		  @PathVariable("childId") Long childId) throws   IOException {
+
+    	pathwaypathwaymbrRepository.deleteByScenarioIdAndParentpathwayIdAndChildpathwayId(scenarioId, parentId, childId);
+
     }
     
     

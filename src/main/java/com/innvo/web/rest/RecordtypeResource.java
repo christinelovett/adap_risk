@@ -167,6 +167,25 @@ public class RecordtypeResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/recordtypes");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    /**
+     * 
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/recordtypeByName/{name}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<Recordtype> getRecordtypeByName(@PathVariable String name) {
+            log.debug("REST request to get Recordtype By name: {}", name);
+            Recordtype recordtype = recordtypeRepository.findByName(name);
+            return Optional.ofNullable(recordtype)
+                .map(result -> new ResponseEntity<>(
+                    result,
+                    HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        }
 
 
 }

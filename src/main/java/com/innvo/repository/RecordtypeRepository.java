@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface RecordtypeRepository extends JpaRepository<Recordtype,Long> {
 
+	Recordtype findByName(String name);
 }

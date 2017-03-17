@@ -3,6 +3,7 @@ package com.innvo.repository;
 import com.innvo.domain.Scenariopathwaymbr;
 
 import org.springframework.data.jpa.repository.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -15,5 +16,8 @@ public interface ScenariopathwaymbrRepository extends JpaRepository<Scenariopath
 	Scenariopathwaymbr findByScenarioIdAndPathwayIsrootnode(long id,boolean isrootnode);
 
 	List<Scenariopathwaymbr> findByScenarioId(long id);
+	
+	@Transactional
+	void deleteByScenarioIdAndPathwayId(long scenarioId,long pathwayId);                     
 
 }

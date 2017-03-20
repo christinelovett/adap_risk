@@ -204,7 +204,12 @@ public class AttackTreeResource {
     	return pathwaypathwaymbr;
     }
     
-    
+    /**
+     * 
+     * @param scenarioId
+     * @param pathwayId
+     * @throws IOException
+     */
     @RequestMapping(value = "/removeRoot/{scenarioId}/{pathwayId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -232,6 +237,20 @@ public class AttackTreeResource {
     	pathwaypathwaymbrRepository.deleteByScenarioIdAndParentpathwayIdAndChildpathwayId(scenarioId, parentId, childId);
 
     }
+    
+    @RequestMapping(value = "/removePathwayCountermeasure/{scenarioId}/{pathwayId}/{countermeasureId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public void removePathwayCountermeasure(@PathVariable("scenarioId") Long scenarioId,@PathVariable("pathwayId") Long pathwayId,
+        		  @PathVariable("countermeasureId") Long countermeasureId) throws   IOException {
+
+    	System.out.println(pathwayId);
+    	System.out.println(countermeasureId);
+    	pathwaycountermeasurembrRepository.deleteByScenarioIdAndCountermeasureIdAndPathwayId(scenarioId, countermeasureId, pathwayId);
+
+    }
+    
       
     /**
      * 

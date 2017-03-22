@@ -36,6 +36,12 @@ public class Pathwaypathwaymbr implements Serializable {
     @Column(name = "logicoperator", nullable = false)
     private Operator logicoperator;
 
+    @Column(name = "xcoordinate")
+    private int xcoordinate;
+    
+    @Column(name = "ycoordinate")
+    private int ycoordinate;
+    
     @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
@@ -91,7 +97,24 @@ public class Pathwaypathwaymbr implements Serializable {
         this.logicoperator = logicoperator;
     }
 
-    public String getStatus() {
+    
+    public int getXcoordinate() {
+		return xcoordinate;
+	}
+
+	public void setXcoordinate(int xcoordinate) {
+		this.xcoordinate = xcoordinate;
+	}
+
+	public int getYcoordinate() {
+		return ycoordinate;
+	}
+
+	public void setYcoordinate(int ycoordinate) {
+		this.ycoordinate = ycoordinate;
+	}
+
+	public String getStatus() {
         return status;
     }
 

@@ -25,6 +25,14 @@
                 <constraints nullable="true" />
             </column>
             
+             <column name="xcoordinate" type="int">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="ycoordinate" type="int">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="status" type="varchar(25)">
                 <constraints nullable="false" />
             </column>

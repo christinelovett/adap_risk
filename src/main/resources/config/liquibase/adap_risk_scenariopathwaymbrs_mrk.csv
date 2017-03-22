@@ -1,4 +1,4 @@
-id, comment, status, lastmodifiedby, lastmodifieddatetime, domain, scenario_id, pathway_id
-100010,"The Steal Car Attack Vector is root node of the Attack Tree for Steal a Car Scenario","Active","echasin","2017-01-22 00:00:00","MRK",100007,100009
-100000,"TEST CASE TWO THIS SHOULD NOT RETURN THE ENTIRE ATTACK TREE.","Active","echasin","2017-01-25 00:00:00","MRK",100008,100009
-100005,"TEST CASE Three Level Example","Active","echasin","2017-01-25 00:00:00","MRK",100001,100002
+id, comment,xcoordinate,ycoordinate,status, lastmodifiedby, lastmodifieddatetime, domain, scenario_id, pathway_id
+100010,"The Steal Car Attack Vector is root node of the Attack Tree for Steal a Car Scenario",null,null,"Active","echasin","2017-01-22 00:00:00","MRK",100007,100009
+100000,"TEST CASE TWO THIS SHOULD NOT RETURN THE ENTIRE ATTACK TREE.",null,null,"Active","echasin","2017-01-25 00:00:00","MRK",100008,100009
+100005,"TEST CASE Three Level Example",null,null,"Active","echasin","2017-01-25 00:00:00","MRK",100001,100002

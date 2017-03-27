@@ -1,5 +1,5 @@
-id, comment, status, lastmodifiedby, lastmodifieddatetime, domain, pathway_id, countermeasure_id, scenario_id
-100026,"Car Alarm is Deterent for Smash Window Attack:Method","Active","echasin","2017-01-22 00:00:00","MRK",100014,100021,100007
-100027,"Car Alarm is Counter Measure (Deterent) for Pick Lock Attack:Method","Active","echasin","2017-01-22 00:00:00","MRK",100017,100021,100007
-100028,"Engine Immobilizer  is Counter Measure for Hot Wire:Attack Method","Active","echasin","2017-01-22 00:00:00","MRK",100019,100023,100007
-100029,"Sidewinder Lock is Counter Measure for Screw Driver:Attack Method","Active","echasin","2017-01-22 00:00:00","MRK",100020,100024,100007
+id, comment,xcoordinate,ycoordinate,status, lastmodifiedby, lastmodifieddatetime, domain, pathway_id, countermeasure_id, scenario_id
+100026,"Car Alarm is Deterent for Smash Window Attack:Method",null,null,"Active","echasin","2017-01-22 00:00:00","MRK",100014,100021,100007
+100027,"Car Alarm is Counter Measure (Deterent) for Pick Lock Attack:Method",null,null,"Active","echasin","2017-01-22 00:00:00","MRK",100017,100021,100007
+100028,"Engine Immobilizer  is Counter Measure for Hot Wire:Attack Method",null,null,"Active","echasin","2017-01-22 00:00:00","MRK",100019,100023,100007
+100029,"Sidewinder Lock is Counter Measure for Screw Driver:Attack Method",null,null,"Active","echasin","2017-01-22 00:00:00","MRK",100020,100024,100007

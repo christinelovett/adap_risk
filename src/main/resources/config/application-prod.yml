@@ -30,10 +30,10 @@ spring:
             enabled: false
     datasource:
         type: com.zaxxer.hikari.HikariDataSource
-        url: jdbc:postgresql://localhost:5432/adap_risk
+        url: jdbc:postgresql://localhost:5432/adap_mrk
         name:
-        username: adap_risk
-        password:
+        username: postgres
+        password: postgres
     jpa:
         database-platform: com.innvo.domain.util.FixedPostgreSQL82Dialect
         database: POSTGRESQL
@@ -47,8 +47,14 @@ spring:
             hibernate.cache.hazelcast.use_lite_member: true
     data:
         elasticsearch:
+            #cluster-name:
+            #cluster-nodes: localhost:9300
             cluster-name:
-            cluster-nodes: localhost:9300
+            cluster-nodes:
+            properties:
+                path:
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
     mail:
         host: localhost
         port: 25

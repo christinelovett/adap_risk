@@ -14,6 +14,9 @@ import java.util.List;
 public interface PathwaycountermeasurembrRepository extends JpaRepository<Pathwaycountermeasurembr,Long> {
 	
 	List<Pathwaycountermeasurembr> findByPathwayIdAndScenarioId(long pathwayId,long scenarioId);
+
+	Pathwaycountermeasurembr findByScenarioIdAndCountermeasureIdAndPathwayId(long scenarioId,long countermeasurId,long pathwayId);
+
 	
 	@Transactional
 	void deleteByScenarioIdAndCountermeasureIdAndPathwayId(long scenarioId,long countermeasurId,long pathwayId);

@@ -138,17 +138,18 @@ public class AttackTreeResource {
      * @param id
      * @return
      */
-    /**
-    @RequestMapping(value = "/getCounterMeasure/{id}",
+    
+    @RequestMapping(value = "/getCounterMeasureLine/{scenarioId}/{pathwayId}/{countermeasureId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<Pathwaycountermeasurembr> getCounterMeasure(@PathVariable Long id) {
-            log.debug("REST request to get logic operator : {}", id);
-            List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(id);
+        public Pathwaycountermeasurembr getCounterMeasure(@PathVariable("scenarioId") Long scenarioId,@PathVariable("pathwayId") Long pathwayId,
+      		  @PathVariable("countermeasureId") Long countermeasureId) {
+            log.debug("REST request to get logic operator : {}", scenarioId);
+            Pathwaycountermeasurembr  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByScenarioIdAndCountermeasureIdAndPathwayId(scenarioId, countermeasureId, pathwayId);
             return pathwaycountermeasurembr;
       }
-    **/
+    
     
     /**
      * 

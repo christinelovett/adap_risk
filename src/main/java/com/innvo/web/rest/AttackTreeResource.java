@@ -259,13 +259,13 @@ public class AttackTreeResource {
      * @return
      * @throws IOException
      */
-    @RequestMapping(value = "/pathwayByRecordtype/{name}",
+    @RequestMapping(value = "/pathwayByRecordtype/{name}/{isrootnode}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<Pathway> getPathwayByRecordtype(@PathVariable("name") String name) throws   IOException {
+        public List<Pathway> getPathwayByRecordtype(@PathVariable("name") String name,@PathVariable("isrootnode") boolean isrootnode) throws   IOException {
 
-    	List<Pathway> pathways= pathwayRepository.findByRecordtypeName(name);
+    	List<Pathway> pathways= pathwayRepository.findByRecordtypeNameAndIsrootnode(name,isrootnode);
     	return pathways;
     }
 }

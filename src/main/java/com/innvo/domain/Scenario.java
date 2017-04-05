@@ -81,17 +81,17 @@ public class Scenario implements Serializable {
                inverseJoinColumns = @JoinColumn(name="subcategories_id", referencedColumnName="ID"))
     private Set<Subcategory> subcategories = new HashSet<>();
 
-    @OneToMany(mappedBy = "scenario")
+    @OneToMany(mappedBy = "scenario",cascade=CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Scenariopathwaymbr> scenariopathwaymbrs = new HashSet<>();
 
-    @OneToMany(mappedBy = "scenario")
+    @OneToMany(mappedBy = "scenario",cascade=CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Pathwaypathwaymbr> pathwaypathwaymbrs = new HashSet<>();
   
-    @OneToMany(mappedBy = "scenario")
+    @OneToMany(mappedBy = "scenario",cascade=CascadeType.REMOVE)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Pathwaycountermeasurembr> pathwaycountermeasurembs = new HashSet<>();

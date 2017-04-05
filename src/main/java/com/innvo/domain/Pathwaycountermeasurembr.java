@@ -30,10 +30,10 @@ public class Pathwaycountermeasurembr implements Serializable {
     private String comment;
 
     @Column(name = "xcoordinate")
-    private int xcoordinate;
+    private Integer xcoordinate;
     
     @Column(name = "ycoordinate")
-    private int ycoordinate;
+    private Integer ycoordinate;
     
     @NotNull
     @Size(max = 25)
@@ -81,20 +81,20 @@ public class Pathwaycountermeasurembr implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
-    public int getXcoordinate() {
+
+	public Integer getXcoordinate() {
 		return xcoordinate;
 	}
 
-	public void setXcoordinate(int xcoordinate) {
+	public void setXcoordinate(Integer xcoordinate) {
 		this.xcoordinate = xcoordinate;
 	}
 
-	public int getYcoordinate() {
+	public Integer getYcoordinate() {
 		return ycoordinate;
 	}
 
-	public void setYcoordinate(int ycoordinate) {
+	public void setYcoordinate(Integer ycoordinate) {
 		this.ycoordinate = ycoordinate;
 	}
 

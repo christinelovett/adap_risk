@@ -1,6 +1,7 @@
 package com.innvo.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.innvo.domain.Category;
 import com.innvo.domain.Subcategory;
 
 import com.innvo.repository.SubcategoryRepository;
@@ -168,5 +169,19 @@ public class SubcategoryResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/subCategoriesByCategory/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<Subcategory>> getCategoryByRecordtype(@PathVariable Long id) {
+            log.debug("REST request to get subCategories By Category: {}", id);
+            List<Subcategory> subcategory = subcategoryRepository.findByCategoryId(id);
+            return  new ResponseEntity<>(subcategory, HttpStatus.OK);
+        }
 
 }

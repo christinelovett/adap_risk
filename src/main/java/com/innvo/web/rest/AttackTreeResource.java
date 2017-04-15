@@ -128,10 +128,40 @@ public class AttackTreeResource {
 		    	 pathwayCountermeasureUtil.setColor(color);
                  pathwayCountermeasureUtils.add(pathwayCountermeasureUtil);
             }
-            
+         
             return pathwayCountermeasureUtils;
       }
     
+    
+    @RequestMapping(value = "/getPathwayInstnace/{parentId}/{scenarioId}/{parentInstance}",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE) 
+    @Timed
+    public List<PathwayCountermeasureUtil> getPathwayInstnace(@PathVariable("parentId") Long parentId,
+    		                      @PathVariable("scenarioId") Long scenarioId,
+    		                      @PathVariable("parentInstance") String parentInstance) throws IOException{
+       log.debug("REST request to get logic operator : {}", scenarioId);
+       List<PathwayCountermeasureUtil> pathwayCountermeasureUtils=new ArrayList<PathwayCountermeasureUtil>();
+       List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayIdAndScenarioIdAndParentInstance(parentId, scenarioId,parentInstance);
+       for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
+    	   		     
+    	  List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayIdAndScenarioIdAndParentInstance(pathwaypathwaymbr.getChildpathway().getId(),scenarioId,pathwaypathwaymbr.getChildInstance());
+          PathwayCountermeasureUtil pathwayCountermeasureUtil=new PathwayCountermeasureUtil();
+          pathwayCountermeasureUtil.setPathwaypathwaymbr(pathwaypathwaymbr);
+          pathwayCountermeasureUtil.setPathwaycountermeasurembrs(pathwaycountermeasurembr);
+        
+        
+        
+         YamlReciever yamlReciever=new YamlReciever();
+		     ObjectMapper oMapper = new ObjectMapper();
+		     Map<String, Object> maps = oMapper.convertValue(yamlReciever.getData(), Map.class);
+		   
+		     String color = (String) maps.get(pathwaypathwaymbr.getChildpathway().getRecordtype().getName());
+    	 pathwayCountermeasureUtil.setColor(color);
+         pathwayCountermeasureUtils.add(pathwayCountermeasureUtil);
+    }
+    return pathwayCountermeasureUtils;
+}
     
     /**
      * 

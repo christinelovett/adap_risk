@@ -8,8 +8,11 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.innvo.domain.enumeration.Operator;
 
 /**
@@ -72,6 +75,12 @@ public class Pathwaypathwaymbr implements Serializable {
     @ManyToOne
     @NotNull
     private Scenario scenario;
+    
+    @NotNull
+    private String parentInstance;
+    
+    @NotNull
+    private String childInstance;
 
 	public Long getId() {
         return id;
@@ -169,7 +178,25 @@ public class Pathwaypathwaymbr implements Serializable {
   		this.scenario = scenario;
   	}
     
-    @Override
+	
+
+	public String getParentInstance() {
+		return parentInstance;
+	}
+
+	public void setParentInstance(String parentInstance) {
+		this.parentInstance = parentInstance;
+	}
+
+	public String getChildInstance() {
+		return childInstance;
+	}
+
+	public void setChildInstance(String childInstance) {
+		this.childInstance = childInstance;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

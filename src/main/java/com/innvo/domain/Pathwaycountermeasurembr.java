@@ -65,6 +65,12 @@ public class Pathwaycountermeasurembr implements Serializable {
     @ManyToOne
     @NotNull
     private Scenario scenario;
+    
+    @NotNull
+    private String parentInstance;
+    
+    @NotNull
+    private String childInstance;
 
     public Long getId() {
         return id;
@@ -152,6 +158,22 @@ public class Pathwaycountermeasurembr implements Serializable {
 
 	public void setScenario(Scenario scenario) {
 		this.scenario = scenario;
+	}
+
+	public String getParentInstance() {
+		return parentInstance;
+	}
+
+	public void setParentInstance(String parentInstance) {
+		this.parentInstance = parentInstance;
+	}
+
+	public String getChildInstance() {
+		return childInstance;
+	}
+
+	public void setChildInstance(String childInstance) {
+		this.childInstance = childInstance;
 	}
 
 	@Override

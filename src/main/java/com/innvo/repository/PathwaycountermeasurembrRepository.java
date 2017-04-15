@@ -15,6 +15,9 @@ public interface PathwaycountermeasurembrRepository extends JpaRepository<Pathwa
 	
 	List<Pathwaycountermeasurembr> findByPathwayIdAndScenarioId(long pathwayId,long scenarioId);
 
+	List<Pathwaycountermeasurembr> findByPathwayIdAndScenarioIdAndParentInstance(long pathwayId,long scenarioId,String instance);
+
+	
 	Pathwaycountermeasurembr findByScenarioIdAndCountermeasureIdAndPathwayId(long scenarioId,long countermeasurId,long pathwayId);
 
 	

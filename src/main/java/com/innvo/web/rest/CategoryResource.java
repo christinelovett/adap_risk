@@ -167,6 +167,22 @@ public class CategoryResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/categories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+    
+    /**
+     * 
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/categoriesByRecordtype/{id}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public ResponseEntity<List<Category>> getCategoryByRecordtype(@PathVariable Long id) {
+            log.debug("REST request to get Category  By Recordtype: {}", id);
+            List<Category> category = categoryRepository.findByRecordtypeId(id);
+            return  new ResponseEntity<>(category, HttpStatus.OK);
+        }
 
 
 }

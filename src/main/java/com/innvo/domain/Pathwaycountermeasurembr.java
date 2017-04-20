@@ -29,6 +29,12 @@ public class Pathwaycountermeasurembr implements Serializable {
     @Column(name = "comment", length = 100)
     private String comment;
 
+    @Column(name = "xcoordinate")
+    private Integer xcoordinate;
+    
+    @Column(name = "ycoordinate")
+    private Integer ycoordinate;
+    
     @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
@@ -55,6 +61,16 @@ public class Pathwaycountermeasurembr implements Serializable {
     @ManyToOne
     @NotNull
     private Countermeasure countermeasure;
+    
+    @ManyToOne
+    @NotNull
+    private Scenario scenario;
+    
+    @NotNull
+    private String parentInstance;
+    
+    @NotNull
+    private String childInstance;
 
     public Long getId() {
         return id;
@@ -72,7 +88,23 @@ public class Pathwaycountermeasurembr implements Serializable {
         this.comment = comment;
     }
 
-    public String getStatus() {
+	public Integer getXcoordinate() {
+		return xcoordinate;
+	}
+
+	public void setXcoordinate(Integer xcoordinate) {
+		this.xcoordinate = xcoordinate;
+	}
+
+	public Integer getYcoordinate() {
+		return ycoordinate;
+	}
+
+	public void setYcoordinate(Integer ycoordinate) {
+		this.ycoordinate = ycoordinate;
+	}
+
+	public String getStatus() {
         return status;
     }
 
@@ -120,7 +152,31 @@ public class Pathwaycountermeasurembr implements Serializable {
         this.countermeasure = countermeasure;
     }
 
-    @Override
+    public Scenario getScenario() {
+		return scenario;
+	}
+
+	public void setScenario(Scenario scenario) {
+		this.scenario = scenario;
+	}
+
+	public String getParentInstance() {
+		return parentInstance;
+	}
+
+	public void setParentInstance(String parentInstance) {
+		this.parentInstance = parentInstance;
+	}
+
+	public String getChildInstance() {
+		return childInstance;
+	}
+
+	public void setChildInstance(String childInstance) {
+		this.childInstance = childInstance;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

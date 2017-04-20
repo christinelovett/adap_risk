@@ -18,5 +18,7 @@ public interface PathwayRepository extends JpaRepository<Pathway,Long> {
 
     @Query("select pathway from Pathway pathway left join fetch pathway.categories left join fetch pathway.subcategories left join fetch pathway.weapons left join fetch pathway.targets where pathway.id =:id")
     Pathway findOneWithEagerRelationships(@Param("id") Long id);
+    
+    List<Pathway> findByRecordtypeNameAndIsrootnode(String name,boolean isrootnode);
 
 }

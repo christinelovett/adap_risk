@@ -12,4 +12,5 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface SubcategoryRepository extends JpaRepository<Subcategory,Long> {
 
+	List<Subcategory> findByCategoryId(long id);
 }

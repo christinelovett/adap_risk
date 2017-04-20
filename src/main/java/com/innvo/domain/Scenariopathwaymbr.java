@@ -29,6 +29,12 @@ public class Scenariopathwaymbr implements Serializable {
     @Column(name = "comment", length = 100)
     private String comment;
 
+    @Column(name = "xcoordinate")
+    private Integer xcoordinate;
+    
+    @Column(name = "ycoordinate")
+    private Integer ycoordinate;
+    
     @NotNull
     @Size(max = 25)
     @Column(name = "status", length = 25, nullable = false)
@@ -71,8 +77,25 @@ public class Scenariopathwaymbr implements Serializable {
     public void setComment(String comment) {
         this.comment = comment;
     }
+    
 
-    public String getStatus() {
+	public Integer getXcoordinate() {
+		return xcoordinate;
+	}
+
+	public void setXcoordinate(Integer xcoordinate) {
+		this.xcoordinate = xcoordinate;
+	}
+
+	public Integer getYcoordinate() {
+		return ycoordinate;
+	}
+
+	public void setYcoordinate(Integer ycoordinate) {
+		this.ycoordinate = ycoordinate;
+	}
+
+	public String getStatus() {
         return status;
     }
 

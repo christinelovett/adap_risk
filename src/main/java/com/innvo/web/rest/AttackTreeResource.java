@@ -12,10 +12,10 @@ import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
-import javax.jms.JMSException;
+//import javax.jms.JMSException;
 import javax.validation.Valid;
 
-import org.boon.core.Sys;
+//import org.boon.core.Sys;
 import org.json.JSONException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -103,20 +103,21 @@ public class AttackTreeResource {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getPathway/{id}",
+    @RequestMapping(value = "/getPathway/{parentId}/{scenarioId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<PathwayCountermeasureUtil> getPathway(@PathVariable Long id) throws IOException{
-            log.debug("REST request to get logic operator : {}", id);
+        public List<PathwayCountermeasureUtil> getPathway(@PathVariable("parentId") Long parentId,@PathVariable("scenarioId") Long scenarioId) throws IOException{
+            log.debug("REST request to get logic operator : {}", scenarioId);
             List<PathwayCountermeasureUtil> pathwayCountermeasureUtils=new ArrayList<PathwayCountermeasureUtil>();
-            List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayId(id);
+            List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayIdAndScenarioId(parentId, scenarioId);
             for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
             	   		     
-            	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(pathwaypathwaymbr.getChildpathway().getId());
+            	List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayIdAndScenarioId(pathwaypathwaymbr.getChildpathway().getId(),scenarioId);
                 PathwayCountermeasureUtil pathwayCountermeasureUtil=new PathwayCountermeasureUtil();
                 pathwayCountermeasureUtil.setPathwaypathwaymbr(pathwaypathwaymbr);
                 pathwayCountermeasureUtil.setPathwaycountermeasurembrs(pathwaycountermeasurembr);
+                
                 
                 
                  YamlReciever yamlReciever=new YamlReciever();
@@ -127,24 +128,58 @@ public class AttackTreeResource {
 		    	 pathwayCountermeasureUtil.setColor(color);
                  pathwayCountermeasureUtils.add(pathwayCountermeasureUtil);
             }
-            
+         
             return pathwayCountermeasureUtils;
       }
+    
+    
+    @RequestMapping(value = "/getPathwayInstnace/{parentId}/{scenarioId}/{parentInstance}",
+    method = RequestMethod.GET,
+    produces = MediaType.APPLICATION_JSON_VALUE) 
+    @Timed
+    public List<PathwayCountermeasureUtil> getPathwayInstnace(@PathVariable("parentId") Long parentId,
+    		                      @PathVariable("scenarioId") Long scenarioId,
+    		                      @PathVariable("parentInstance") String parentInstance) throws IOException{
+       log.debug("REST request to get logic operator : {}", scenarioId);
+       List<PathwayCountermeasureUtil> pathwayCountermeasureUtils=new ArrayList<PathwayCountermeasureUtil>();
+       List<Pathwaypathwaymbr>  pathwaypathwaymbrs=pathwaypathwaymbrRepository.findByParentpathwayIdAndScenarioIdAndParentInstance(parentId, scenarioId,parentInstance);
+       for(Pathwaypathwaymbr pathwaypathwaymbr:pathwaypathwaymbrs){
+    	   		     
+    	  List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayIdAndScenarioIdAndParentInstance(pathwaypathwaymbr.getChildpathway().getId(),scenarioId,pathwaypathwaymbr.getChildInstance());
+          PathwayCountermeasureUtil pathwayCountermeasureUtil=new PathwayCountermeasureUtil();
+          pathwayCountermeasureUtil.setPathwaypathwaymbr(pathwaypathwaymbr);
+          pathwayCountermeasureUtil.setPathwaycountermeasurembrs(pathwaycountermeasurembr);
+        
+        
+        
+         YamlReciever yamlReciever=new YamlReciever();
+		     ObjectMapper oMapper = new ObjectMapper();
+		     Map<String, Object> maps = oMapper.convertValue(yamlReciever.getData(), Map.class);
+		   
+		     String color = (String) maps.get(pathwaypathwaymbr.getChildpathway().getRecordtype().getName());
+    	 pathwayCountermeasureUtil.setColor(color);
+         pathwayCountermeasureUtils.add(pathwayCountermeasureUtil);
+    }
+    return pathwayCountermeasureUtils;
+}
     
     /**
      * 
      * @param id
      * @return
      */
-    @RequestMapping(value = "/getCounterMeasure/{id}",
+    
+    @RequestMapping(value = "/getCounterMeasureLine/{scenarioId}/{pathwayId}/{countermeasureId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public List<Pathwaycountermeasurembr> getCounterMeasure(@PathVariable Long id) {
-            log.debug("REST request to get logic operator : {}", id);
-            List<Pathwaycountermeasurembr>  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByPathwayId(id);
+        public Pathwaycountermeasurembr getCounterMeasure(@PathVariable("scenarioId") Long scenarioId,@PathVariable("pathwayId") Long pathwayId,
+      		  @PathVariable("countermeasureId") Long countermeasureId) {
+            log.debug("REST request to get logic operator : {}", scenarioId);
+            Pathwaycountermeasurembr  pathwaycountermeasurembr=pathwaycountermeasurembrRepository.findByScenarioIdAndCountermeasureIdAndPathwayId(scenarioId, countermeasureId, pathwayId);
             return pathwaycountermeasurembr;
       }
+    
     
     /**
      * 
@@ -181,15 +216,86 @@ public class AttackTreeResource {
     }
     
  
+    /**
+     * 
+     * @param scenarioId
+     * @param parentId
+     * @param childId
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/getLineData/{scenarioId}/{parentId}/{childId}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
         @Timed
-        public Pathwaypathwaymbr saveScenarioPathway(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
+        public Pathwaypathwaymbr getLineData(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
         		  @PathVariable("childId") Long childId) throws   IOException {
 
     	Pathwaypathwaymbr pathwaypathwaymbr= pathwaypathwaymbrRepository.findByScenarioIdAndParentpathwayIdAndChildpathwayId(scenarioId, parentId, childId);
     	return pathwaypathwaymbr;
     }
     
+    /**
+     * 
+     * @param scenarioId
+     * @param pathwayId
+     * @throws IOException
+     */
+    @RequestMapping(value = "/removeRoot/{scenarioId}/{pathwayId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public void removeRoot(@PathVariable("scenarioId") Long scenarioId,@PathVariable("pathwayId") Long pathwayId) throws   IOException {
+
+    	scenariopathwaymbrRepository.deleteByScenarioIdAndPathwayId(scenarioId, pathwayId);
+
+    }
+    
+    /**
+     * 
+     * @param scenarioId
+     * @param parentId
+     * @param childId
+     * @throws IOException
+     */
+    @RequestMapping(value = "/removeLine/{scenarioId}/{parentId}/{childId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public void removeLine(@PathVariable("scenarioId") Long scenarioId,@PathVariable("parentId") Long parentId,
+        		  @PathVariable("childId") Long childId) throws   IOException {
+
+    	pathwaypathwaymbrRepository.deleteByScenarioIdAndParentpathwayIdAndChildpathwayId(scenarioId, parentId, childId);
+
+    }
+    
+    @RequestMapping(value = "/removePathwayCountermeasure/{scenarioId}/{pathwayId}/{countermeasureId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public void removePathwayCountermeasure(@PathVariable("scenarioId") Long scenarioId,@PathVariable("pathwayId") Long pathwayId,
+        		  @PathVariable("countermeasureId") Long countermeasureId) throws   IOException {
+
+    	System.out.println(pathwayId);
+    	System.out.println(countermeasureId);
+    	pathwaycountermeasurembrRepository.deleteByScenarioIdAndCountermeasureIdAndPathwayId(scenarioId, countermeasureId, pathwayId);
+
+    }
+    
+      
+    /**
+     * 
+     * @param name
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/pathwayByRecordtype/{name}/{isrootnode}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+        @Timed
+        public List<Pathway> getPathwayByRecordtype(@PathVariable("name") String name,@PathVariable("isrootnode") boolean isrootnode) throws   IOException {
+
+    	List<Pathway> pathways= pathwayRepository.findByRecordtypeNameAndIsrootnode(name,isrootnode);
+    	return pathways;
+    }
 }

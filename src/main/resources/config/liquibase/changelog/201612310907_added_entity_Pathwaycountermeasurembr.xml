@@ -25,6 +25,14 @@
                 <constraints nullable="true" />
             </column>
             
+             <column name="xcoordinate" type="int">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="ycoordinate" type="int">
+                <constraints nullable="true" />
+            </column>
+            
             <column name="status" type="varchar(25)">
                 <constraints nullable="false" />
             </column>
@@ -49,6 +57,19 @@
                 <constraints nullable="false" />
             </column>
 
+             <column name="scenario_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="parent_instance" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="child_instance" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            
+            
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         <dropDefaultValue tableName="pathwaycountermeasurembr" columnName="lastmodifieddatetime" columnDataType="datetime"/>
